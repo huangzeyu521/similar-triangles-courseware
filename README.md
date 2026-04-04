@@ -12,6 +12,7 @@
 | `scripts/smoke-test.js` | 冒烟测试（id、语法、关键节点） |
 | `scripts/verify-ids.js` | 校验 `main.js` 的 `getElementById` 与 `index.html` 一致 |
 | `package.json` | `npm test` → 连续执行上述两脚本 |
+| `.github/workflows/deploy-github-pages.yml` | push 到 `main` 时自动部署 GitHub Pages |
 
 ## 模块一览（古风命名）
 
@@ -43,6 +44,18 @@ npm test
 ```
 
 （含：`main.js` 与 `index.html` 的 id 对齐、`index.html` 内 `id` 唯一性、脚本文件存在、`node --check` 语法检查、底栏与画布等关键 `id` 存在性；`npm test` 会连续跑 `smoke-test` 与 `verify-ids`。）
+
+## GitHub Pages 自动部署
+
+仓库内已配置 **GitHub Actions**（`.github/workflows/deploy-github-pages.yml`）：每次 **push 到 `main`** 会自动把站点根目录部署到 GitHub Pages。
+
+**首次启用（只需做一次）：**
+
+1. 打开 GitHub 仓库 → **Settings** → **Pages**。
+2. **Build and deployment** → **Source** 选 **GitHub Actions**（不要选 “Deploy from a branch”，否则与 Actions 部署冲突）。
+3. 将含 workflow 的提交 **push 到 `main`**，在 **Actions** 页可看到 “Deploy to GitHub Pages” 运行；约 1～2 分钟后站点生效。
+
+访问地址一般为：`https://<你的用户名>.github.io/<仓库名>/`，例如：`https://huangzeyu521.github.io/similar-triangles-courseware/`
 
 ## Git 与 GitHub（本目录为独立仓库）
 
