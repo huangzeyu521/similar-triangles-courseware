@@ -43,3 +43,32 @@ npm test
 ```
 
 （含：`main.js` 与 `index.html` 的 id 对齐、`index.html` 内 `id` 唯一性、脚本文件存在、`node --check` 语法检查、底栏与画布等关键 `id` 存在性；`npm test` 会连续跑 `smoke-test` 与 `verify-ids`。）
+
+## Git 与 GitHub（本目录为独立仓库）
+
+日常只在 **`D:\MyAIProject\pptdesign\htmlpages`** 里维护课件，与上层 `pptdesign` 仓库分开。
+
+```bash
+cd D:\MyAIProject\pptdesign\htmlpages
+git status
+git add -A
+git commit -m "说明你的修改"
+```
+
+首次关联 GitHub 远程（把地址换成你的仓库）：
+
+```bash
+git remote add origin https://github.com/你的用户名/你的仓库名.git
+git push -u origin main
+```
+
+若远程已有错误历史需覆盖：`git push -u origin main --force`（慎用）。
+
+**说明**：上层仓库 `D:\MyAIProject\pptdesign` 的 `.gitignore` 已加入 `htmlpages/`，避免父仓库再跟踪课件文件。若父仓库里仍记录着旧的 `htmlpages` 路径，请在**关闭占用 Git 的 IDE 操作后**，在 `pptdesign` 根目录执行一次：
+
+```bash
+cd D:\MyAIProject\pptdesign
+git rm -r --cached htmlpages
+git add .gitignore
+git commit -m "chore: 课件改由 htmlpages 独立仓库维护"
+```
