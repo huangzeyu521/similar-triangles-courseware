@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>利用相似三角形测高 · 交互课件</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="theme-guofeng">
+  <a href="#main-stage" class="skip-link">跳到主舞台</a>
+  <div id="route-announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <div id="app">
+    <header class="app-header">
+      <h1 class="app-title">利用相似三角形测高</h1>
+      <p class="app-sub">交互式多媒体教学课件 · 国风卷轴 · HTML5 / Canvas</p>
+    </header>
+
+    <main id="main-content" class="main-wrap" tabindex="-1">
+      <div id="module-context-bar" class="module-context-bar" hidden role="navigation" aria-label="当前模块">
+        <span class="context-dot" aria-hidden="true"></span>
+        <span id="context-title" class="context-title"></span>
+        <span id="context-sub" class="context-sub" hidden></span>
+      </div>
+
+      <!-- 16:9 主舞台：各模块内容区 -->
+      <div id="main-stage" class="main-stage">
+        <!-- 主界面：模块入口（含古建筑测绘局） -->
+        <section id="view-home" class="view view-active view-home" data-view="home">
+          <!-- 国风横向卷轴：入场自中央向两侧展开；背景为淡雅水墨与海春轩塔意象 -->
+          <div class="scroll-stage" id="scroll-stage" aria-label="课程主导航卷轴">
+            <div class="scroll-ink-bg" aria-hidden="true">
+              <div class="scroll-tower-silhouette" aria-hidden="true"></div>
+              <div class="scroll-mist scroll-mist-1" aria-hidden="true"></div>
+              <div class="scroll-mist scroll-mist-2" aria-hidden="true"></div>
+            </div>
+            <div class="scroll-paper" id="scroll-paper">
+              <div class="scroll-paper-edge scroll-paper-edge--left" aria-hidden="true"></div>
+              <div class="scroll-paper-edge scroll-paper-edge--right" aria-hidden="true"></div>
+              <div class="scroll-inner scroll-inner--quest">
+                <p class="scroll-tagline font-serif">以相似三角形 · 丈量天地</p>
+                <p class="quest-map-subtitle">测绘闯关图 · 沿墨线依次解锁七关</p>
+                <!-- 闯关路线：非线性排布 + 背景墨线轨迹；印章与标题横排杜绝重叠 -->
+                <div class="quest-map" role="navigation" aria-label="测绘闯关路线">
+                  <svg class="quest-path-ink" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="questInkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#a67c2d" stop-opacity="0.55" />
+                        <stop offset="50%" stop-color="#d4a84b" stop-opacity="0.45" />
+                        <stop offset="100%" stop-color="#8b6914" stop-opacity="0.5" />
+                      </linearGradient>
+                      <filter id="questInkBlur" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" />
+                      </filter>
+                    </defs>
+                    <!-- 主墨径：折线模拟山径闯关 -->
+                    <path
+                      class="quest-path-glow"
+                      d="M 70 95 Q 200 40 340 95 Q 480 150 620 95 Q 760 45 920 115 Q 940 200 780 255 Q 620 310 420 275 Q 280 245 160 310 Q 280 365 500 360"
+                      fill="none"
+                      stroke="url(#questInkGrad)"
+                      stroke-width="14"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      opacity="0.22"
+                      filter="url(#questInkBlur)"
+                    />
+                    <path
+                      class="quest-path-line"
+                      d="M 70 95 Q 200 40 340 95 Q 480 150 620 95 Q 760 45 920 115 Q 940 200 780 255 Q 620 310 420 275 Q 280 245 160 310 Q 280 365 500 360"
+                      fill="none"
+                      stroke="#9a7b38"
+                      stroke-width="3.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-dasharray="8 14"
+                      opacity="0.65"
+                    />
+                  </svg>
+                  <div class="quest-floating quest-floating--a" aria-hidden="true"></div>
+                  <div class="quest-floating quest-floating--b" aria-hidden="true"></div>
+
+                  <div class="map-node map-node--1">
+                    <span class="map-step-badge">第壹关</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="challenge" data-ancient="悬赏榜">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">榜</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">悬赏榜</span>
+                          <span class="nav-slip-sub">情境挑战</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--2">
+                    <span class="map-step-badge">第贰关</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="lab" data-ancient="测绘局">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal nav-slip-seal--mirror" aria-hidden="true">镜</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">测绘局</span>
+                          <span class="nav-slip-sub">方案比拼 · 三模型</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--3">
+                    <span class="map-step-badge">第叁关</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--heritage nav-slip--map" data-target="heritage" data-ancient="古建测绘">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">塔</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">古建测绘</span>
+                          <span class="nav-slip-sub">海春轩塔 · 土圭测影</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--4">
+                    <span class="map-step-badge">第肆关</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="calc" data-ancient="算学馆">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">算</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">算学馆</span>
+                          <span class="nav-slip-sub">数据速算</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--5">
+                    <span class="map-step-badge">第伍关</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="error" data-ancient="鉴误阁">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">鉴</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">鉴误阁</span>
+                          <span class="nav-slip-sub">误差分析</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--6">
+                    <span class="map-step-badge">第陆关</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="quiz" data-ancient="科举考">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">科</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">科举考</span>
+                          <span class="nav-slip-sub">随堂评价</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--7 map-node--boss">
+                    <span class="map-step-badge map-step-badge--boss">终章</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--extreme nav-slip--map" data-target="extreme" data-ancient="极限挑战">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal nav-slip-seal--wind" aria-hidden="true">风</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">极限挑战</span>
+                          <span class="nav-slip-sub">高阶探究 · 风力模拟</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1 情境挑战：操场情境 + 遮罩任务卡（仪式感弹出） -->
+        <section id="view-challenge" class="view view-panel" data-view="challenge" hidden>
+          <div class="challenge-scene challenge-bg" aria-hidden="true">
+            <div class="challenge-bg-overlay"></div>
+            <div class="flag-scene flag-scene-hero">
+              <div class="flag-pole"></div>
+              <div class="flag cloth"></div>
+              <div class="ground-line"></div>
+              <div class="cloud c1"></div>
+              <div class="cloud c2"></div>
+            </div>
+            <p class="challenge-lead fade-in-left">
+              面对高耸入云的校园旗杆，在无法直接攀爬的情况下，该如何知道它的<strong>精确高度</strong>呢？
+            </p>
+            <p class="challenge-hint">点击右下角「下一步」领取任务卡</p>
+          </div>
+          <!-- 首次点「下一步」后显示：深色遮罩 + 弹性弹出任务卡 -->
+          <div id="challenge-modal" class="challenge-modal" hidden role="dialog" aria-modal="true" aria-labelledby="task-card-title">
+            <div class="challenge-modal-backdrop"></div>
+            <div class="task-card-elastic">
+              <div class="task-card-icon" aria-hidden="true">
+                <span class="task-icon-ring">
+                  <span class="task-icon-bolt">⚡</span>
+                </span>
+              </div>
+              <p class="task-card-kicker">情境挑战</p>
+              <h2 id="task-card-title" class="task-card-headline">如何利用皮尺、标杆、小镜子测出旗杆高度？</h2>
+              <p class="task-card-sub">结合相似三角形 · 下一模块「方案比拼」将用三种动态模型验证思路</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2 方案比拼（校园测高，保留不变） -->
+        <section id="view-lab" class="view view-panel" data-view="lab" hidden>
+          <div class="lab-toolbar" role="tablist" aria-label="测高模型">
+            <button type="button" class="lab-tab active" data-lab="shadow" role="tab" aria-selected="true">影子法</button>
+            <button type="button" class="lab-tab" data-lab="mirror" role="tab" aria-selected="false">平面镜法</button>
+            <button type="button" class="lab-tab" data-lab="pole" role="tab" aria-selected="false">标杆法</button>
+          </div>
+          <div class="lab-canvas-wrap">
+            <canvas id="lab-canvas" width="960" height="540" aria-label="测高模型交互画布"></canvas>
+          </div>
+          <p class="lab-hint" id="lab-hint-text">拖动太阳 / 镜子 / 标杆或人物，观察光线与相似三角形。</p>
+        </section>
+
+        <!-- 2b 古建筑测绘局：互动 Canvas + 《孙子算经》《九章算术》算经闯关 -->
+        <section id="view-heritage" class="view view-panel view-heritage" data-view="heritage" hidden>
+          <p class="heritage-lead">《周髀算经》土圭测影、静水平面成像与步天立杆，与相似三角形测高同构——在此以古代工匠视角复现；亦可挑战算经名题。</p>
+          <div class="heritage-mode-toolbar" role="tablist" aria-label="古建测绘子模块">
+            <button type="button" class="heritage-mode-tab active" data-heritage-mode="lab" role="tab" aria-selected="true">互动测绘</button>
+            <button type="button" class="heritage-mode-tab" data-heritage-mode="classic" role="tab" aria-selected="false">算经闯关</button>
+          </div>
+          <div id="heritage-lab-panel" class="heritage-mode-panel">
+            <div class="heritage-toolbar" role="tablist" aria-label="古建筑测绘模型">
+              <button type="button" class="heritage-tab active" data-heritage="shadow" role="tab" aria-selected="true">土圭测影</button>
+              <button type="button" class="heritage-tab" data-heritage="mirror" role="tab" aria-selected="false">盆水倒影</button>
+              <button type="button" class="heritage-tab" data-heritage="pole" role="tab" aria-selected="false">步天立杆</button>
+            </div>
+            <div class="heritage-canvas-wrap lab-canvas-wrap">
+              <canvas id="heritage-canvas" width="960" height="540" aria-label="古建筑测绘交互画布"></canvas>
+            </div>
+            <p class="lab-hint" id="heritage-hint-text">拖动日轮 / 青铜盆水 / 木杆或工匠，观察光路与相似三角形。</p>
+          </div>
+          <div id="heritage-classic-panel" class="heritage-mode-panel heritage-classic-panel" hidden>
+            <div id="heritage-quiz-root" class="heritage-quiz-board" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <!-- 3 数据速算：三 Tab + 题目卡 + 提交与公式提示 -->
+        <section id="view-calc" class="view view-panel" data-view="calc" hidden>
+          <h2 class="view-title font-serif">数据速算</h2>
+          <p class="view-lead">选择模型，根据随机测量数据计算旗杆高度（米）。允许 ±0.1m 误差。</p>
+          <div class="calc-tablist" role="tablist" aria-label="速算模型">
+            <button type="button" class="calc-tab active" data-calc-tab="shadow" role="tab" aria-selected="true">影子法</button>
+            <button type="button" class="calc-tab" data-calc-tab="mirror" role="tab" aria-selected="false">平面镜法</button>
+            <button type="button" class="calc-tab" data-calc-tab="pole" role="tab" aria-selected="false">标杆法</button>
+          </div>
+          <div id="calc-card" class="calc-question-card" aria-live="polite"></div>
+          <div class="calc-answer-row">
+            <label class="calc-label" for="calc-answer-input">你的答案 H（m）</label>
+            <input type="text" id="calc-answer-input" class="calc-input calc-input-lg" inputmode="decimal" autocomplete="off" />
+            <button type="button" class="btn btn-primary" id="btn-calc-submit">提交验证</button>
+            <button type="button" class="btn secondary" id="btn-calc-reroll">换一题</button>
+          </div>
+          <p id="calc-feedback-main" class="calc-feedback-main" role="status"></p>
+          <button type="button" class="btn btn-hint-calc" id="btn-calc-formula-hint" hidden>💡 公式提示</button>
+          <div id="calc-formula-panel" class="calc-formula-panel" hidden></div>
+        </section>
+
+        <!-- 4 误差分析：手动倾斜 + 风力摆动（rAF） -->
+        <section id="view-error" class="view view-panel" data-view="error" hidden>
+          <h2 class="view-title font-serif">误差分析</h2>
+          <p class="view-lead">
+            <strong>手动倾斜</strong>模拟杆身不竖直或手部微颤；<strong>风力等级</strong>叠加动态摆动（sin 组合波 + 微扰），观察远端古塔上的高度误差放大。
+          </p>
+          <div class="error-canvas-wrap error-shake-host" id="error-shake-host">
+            <canvas id="error-canvas" width="720" height="320" aria-label="标杆法与风力误差放大示意"></canvas>
+          </div>
+          <label class="slider-label" for="error-range">倾斜角度 θ（−5°～+5°，步长 0.1°）</label>
+          <input type="range" id="error-range" class="error-range" min="-50" max="50" value="0" step="1" />
+          <label class="slider-label" for="error-wind">风力等级（0～5 级，0 为无风）</label>
+          <input type="range" id="error-wind" class="error-range error-wind" min="0" max="5" value="0" step="1" />
+          <p class="error-label" id="error-label"></p>
+        </section>
+
+        <!-- 5 随堂评价：单题流 1/3 + Kahoot 风格选项 -->
+        <section id="view-quiz" class="view view-panel" data-view="quiz" hidden>
+          <h2 class="view-title font-serif">随堂评价</h2>
+          <div id="quiz-root" class="quiz-board"></div>
+        </section>
+
+        <!-- 7 极限挑战：高阶探究题库 + 风力模拟（分栏） -->
+        <section id="view-extreme" class="view view-panel view-extreme" data-view="extreme" hidden>
+          <h2 class="view-title font-serif">极限挑战</h2>
+          <div class="extreme-toolbar" role="tablist" aria-label="极限挑战子模块">
+            <button type="button" class="extreme-tab active" data-extreme-panel="quiz" role="tab" aria-selected="true">高阶闯关</button>
+            <button type="button" class="extreme-tab" data-extreme-panel="wind" role="tab" aria-selected="false">风力模拟</button>
+          </div>
+          <div id="extreme-panel-quiz" class="extreme-panel">
+            <p class="view-lead extreme-quiz-lead">
+              复杂地形与多重变量下的相似三角形建模：台阶折影、双路灯交叉投影等压轴探究。
+            </p>
+            <div id="extreme-quiz-root" class="extreme-quiz-board"></div>
+          </div>
+          <div id="extreme-panel-wind" class="extreme-panel extreme-panel-wind" hidden>
+            <p class="view-lead">
+              在<strong>标杆法</strong>测高情境下调节<strong>风力等级</strong>，观察远端目标上误差被「相似比」放大。手动倾角固定为 0°。
+            </p>
+            <input type="hidden" id="extreme-manual-deg" data-fixed-manual-deg="0" value="0" />
+            <div class="error-canvas-wrap error-shake-host" id="extreme-shake-host">
+              <canvas id="extreme-canvas" width="720" height="320" aria-label="极限挑战：风力误差放大示意"></canvas>
+            </div>
+            <label class="slider-label" for="extreme-wind">风力等级（0～5 级，0 为无风）</label>
+            <input type="range" id="extreme-wind" class="error-range error-wind" min="0" max="5" value="0" step="1" />
+            <p class="error-label" id="extreme-label"></p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="global-bar">
+      <div class="global-left">
+        <button type="button" class="btn btn-music" id="btn-music" aria-pressed="false" title="背景音乐">音乐：关</button>
+      </div>
+      <div class="global-right">
+        <button type="button" class="btn" id="btn-home">返回主界面</button>
+        <button type="button" class="btn" id="btn-prev">上一步</button>
+        <button type="button" class="btn btn-primary" id="btn-next">下一步</button>
+      </div>
+    </footer>
+  </div>
+
+  <audio id="bgm" loop preload="auto"></audio>
+  <script src="js/lab-models.js"></script>
+  <script src="js/heritage-lab.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

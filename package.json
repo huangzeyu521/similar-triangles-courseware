@@ -1,0 +1,8 @@
+{
+  "name": "htmlpages-similar-triangles-courseware",
+  "private": true,
+  "description": "利用相似三角形测高 · 静态 HTML 课件",
+  "scripts": {
+    "test": "node scripts/smoke-test.js && node scripts/verify-ids.js"
+  }
+}
