@@ -1,18 +1,18 @@
 /* 《利用相似三角形测高》· 科技感课件 · PC / iPad */
 
 :root {
-  --bg: #050810;
-  --bg-panel: #0c1220;
-  --elevated: #111a2e;
-  --text: #e8f0f8;
-  --muted: #8b9cb3;
-  --accent: #22d3ee;
-  --accent-dim: #0891b2;
-  --warn: #fb923c;
-  --ok: #4ade80;
-  --bad: #f87171;
-  --border: rgba(148, 163, 184, 0.2);
-  --glow: rgba(34, 211, 238, 0.35);
+  --bg: #e8edf2;
+  --bg-panel: #f1f5f9;
+  --elevated: #e2e8f0;
+  --text: #1e293b;
+  --muted: #64748b;
+  --accent: #0ea5e9;
+  --accent-dim: #0284c7;
+  --warn: #ea580c;
+  --ok: #16a34a;
+  --bad: #dc2626;
+  --border: rgba(71, 85, 105, 0.22);
+  --glow: rgba(14, 165, 233, 0.28);
   --radius: 12px;
   --bar-h: 56px;
   --stage-max: min(96vw, 1100px);
@@ -46,14 +46,14 @@ body {
 .app-header {
   text-align: center;
   padding: 1rem 1rem 0.5rem;
-  background: linear-gradient(180deg, rgba(34, 211, 238, 0.08), transparent);
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.1), transparent);
 }
 
 .app-title {
   margin: 0;
   font-size: clamp(1.25rem, 3.5vw, 1.65rem);
   font-weight: 700;
-  background: linear-gradient(135deg, #fff, #67e8f9);
+  background: linear-gradient(135deg, #0f172a, #0284c7);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -150,19 +150,19 @@ body {
   aspect-ratio: 16 / 9;
   max-height: min(72vh, 620px);
   margin: 0 auto;
-  background: linear-gradient(165deg, #0a1020 0%, #060912 100%);
+  background: linear-gradient(165deg, #f8fafc 0%, #e8edf4 100%);
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .main-stage::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(14, 165, 233, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
   pointer-events: none;
   opacity: 0.5;
@@ -196,7 +196,7 @@ body {
 .nav-tile {
   appearance: none;
   border: 1px solid var(--border);
-  background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.95));
+  background: linear-gradient(145deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.98));
   color: var(--text);
   border-radius: var(--radius);
   padding: 1rem 0.85rem;
@@ -212,8 +212,8 @@ body {
 .nav-tile:hover,
 .nav-tile:focus-visible {
   transform: translateY(-2px);
-  border-color: rgba(34, 211, 238, 0.45);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(34, 211, 238, 0.15);
+  border-color: rgba(14, 165, 233, 0.4);
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(14, 165, 233, 0.12);
   outline: none;
 }
 
@@ -236,7 +236,7 @@ body {
 
 .nav-tile-heritage {
   border-color: rgba(180, 83, 9, 0.4);
-  background: linear-gradient(145deg, rgba(62, 42, 28, 0.82), rgba(28, 20, 14, 0.96));
+  background: linear-gradient(145deg, rgba(254, 243, 232, 0.95), rgba(250, 231, 210, 0.98));
 }
 
 .nav-tile-heritage .nav-tile-i {
@@ -245,13 +245,13 @@ body {
 
 /* 古建筑测绘局视图 */
 .view-heritage {
-  background: linear-gradient(180deg, rgba(40, 28, 18, 0.35) 0%, transparent 40%);
+  background: linear-gradient(180deg, rgba(253, 245, 235, 0.65) 0%, transparent 42%);
 }
 
 .heritage-lead {
   margin: 0 0 0.6rem;
   font-size: 0.82rem;
-  color: #d6d3d1;
+  color: var(--muted);
   line-height: 1.55;
   max-width: 52em;
 }
@@ -268,8 +268,8 @@ body {
   padding: 0.38rem 0.85rem;
   border-radius: 6px;
   border: 1px solid rgba(180, 83, 9, 0.45);
-  background: rgba(40, 28, 20, 0.85);
-  color: #d6d3d1;
+  background: rgba(255, 251, 245, 0.92);
+  color: var(--text);
   font-size: 0.84rem;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
@@ -284,7 +284,7 @@ body {
 
 .heritage-canvas-wrap {
   border-color: rgba(120, 83, 50, 0.45) !important;
-  background: #120c08 !important;
+  background: #ebe6df !important;
 }
 
 .error-wind {
@@ -315,7 +315,7 @@ body {
 }
 
 .challenge-bg {
-  background-color: #0f172a;
+  background-color: #e8ecf0;
   background-image: url("flag1.png");
   /* 完整显示图片并随容器缩放；窄边留白用 background-color 铺底 */
   background-size: contain;
@@ -328,9 +328,9 @@ body {
   inset: 0;
   background: linear-gradient(
     105deg,
-    rgba(5, 8, 16, 0.88) 0%,
-    rgba(5, 8, 16, 0.45) 42%,
-    rgba(5, 8, 16, 0.25) 100%
+    rgba(248, 250, 252, 0.82) 0%,
+    rgba(248, 250, 252, 0.38) 42%,
+    rgba(255, 255, 255, 0.12) 100%
   );
   pointer-events: none;
 }
@@ -347,8 +347,8 @@ body {
   width: min(42%, 200px);
   height: 160px;
   border-radius: var(--radius);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  background: rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(255, 255, 255, 0.45);
   overflow: hidden;
 }
 
@@ -358,7 +358,7 @@ body {
   max-width: 22em;
   margin: 0 0 0.5rem;
   line-height: 1.65;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8), 0 2px 12px rgba(15, 23, 42, 0.15);
 }
 
 .fade-in-left {
@@ -381,7 +381,7 @@ body {
   margin: 0;
   font-size: 0.82rem;
   color: var(--accent);
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
 .challenge-modal {
@@ -404,8 +404,8 @@ body {
 .challenge-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(2, 6, 15, 0.72);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(6px);
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -419,10 +419,10 @@ body {
   max-width: 420px;
   width: 100%;
   padding: 1.5rem 1.75rem 1.75rem;
-  background: linear-gradient(155deg, rgba(17, 26, 46, 0.98), rgba(12, 18, 32, 0.99));
-  border: 1px solid rgba(34, 211, 238, 0.45);
+  background: linear-gradient(155deg, #fafbfc 0%, #f1f5f9 100%);
+  border: 1px solid rgba(14, 165, 233, 0.35);
   border-radius: 16px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
   transform: scale(0.88);
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -447,9 +447,9 @@ body {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.35), rgba(8, 145, 178, 0.15));
-  border: 2px solid rgba(34, 211, 238, 0.5);
-  box-shadow: 0 0 24px rgba(34, 211, 238, 0.25);
+  background: radial-gradient(circle at 30% 30%, rgba(14, 165, 233, 0.25), rgba(125, 211, 252, 0.2));
+  border: 2px solid rgba(14, 165, 233, 0.4);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
 }
 
 .task-icon-bolt {
@@ -473,7 +473,7 @@ body {
   font-weight: 800;
   text-align: center;
   line-height: 1.45;
-  color: #f8fafc;
+  color: #0f172a;
 }
 
 .task-card-sub {
@@ -488,7 +488,7 @@ body {
   position: relative;
   width: min(100%, 320px);
   height: 180px;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
   border-radius: var(--radius);
   border: 1px solid var(--border);
   overflow: hidden;
@@ -580,7 +580,7 @@ body {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   color: var(--muted);
   font-size: 0.88rem;
   cursor: pointer;
@@ -588,7 +588,7 @@ body {
 }
 
 .lab-tab.active {
-  background: rgba(34, 211, 238, 0.18);
+  background: rgba(14, 165, 233, 0.15);
   border-color: var(--accent);
   color: var(--accent);
   font-weight: 600;
@@ -599,7 +599,7 @@ body {
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
-  background: #050810;
+  background: #e8e4de;
 }
 
 #lab-canvas {
@@ -665,7 +665,7 @@ body {
   padding: 0.35rem 0.5rem;
   border-radius: 6px;
   border: 1px solid var(--border);
-  background: #0f172a;
+  background: #ffffff;
   color: var(--text);
 }
 
@@ -699,7 +699,7 @@ body {
   padding: 0.4rem 0.95rem;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   color: var(--muted);
   font-size: 0.86rem;
   cursor: pointer;
@@ -707,14 +707,14 @@ body {
 }
 
 .calc-tab.active {
-  background: rgba(34, 211, 238, 0.2);
+  background: rgba(14, 165, 233, 0.18);
   border-color: var(--accent);
   color: var(--accent);
   font-weight: 600;
 }
 
 .calc-question-card {
-  background: linear-gradient(160deg, rgba(17, 24, 39, 0.95), rgba(12, 18, 32, 0.98));
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.98));
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.1rem 1.25rem;
@@ -764,8 +764,8 @@ body {
 .calc-formula-panel {
   margin-top: 0.5rem;
   padding: 0.85rem 1rem;
-  background: rgba(34, 211, 238, 0.08);
-  border: 1px solid rgba(34, 211, 238, 0.3);
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.28);
   border-radius: 10px;
   font-size: 0.86rem;
   line-height: 1.55;
@@ -873,7 +873,7 @@ body {
   padding: 0.75rem 0.85rem;
   border-radius: 12px;
   border: 2px solid var(--border);
-  background: linear-gradient(180deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.98));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98));
   color: var(--text);
   font-size: 0.9rem;
   text-align: left;
@@ -883,8 +883,8 @@ body {
 
 .quiz-opt-btn:hover:not(:disabled) {
   transform: scale(1.02);
-  border-color: rgba(34, 211, 238, 0.45);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  border-color: rgba(14, 165, 233, 0.4);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
 }
 
 .quiz-opt-btn:active:not(:disabled) {
@@ -901,7 +901,7 @@ body {
   justify-content: center;
   font-weight: 800;
   font-size: 0.85rem;
-  background: rgba(34, 211, 238, 0.2);
+  background: rgba(14, 165, 233, 0.18);
   color: var(--accent);
 }
 
@@ -994,7 +994,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  background: rgba(8, 12, 20, 0.92);
+  background: rgba(248, 250, 252, 0.94);
   border-top: 1px solid var(--border);
   backdrop-filter: blur(12px);
   z-index: 100;
@@ -1013,7 +1013,7 @@ body {
 .btn {
   appearance: none;
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, #1e293b, #0f172a);
+  background: linear-gradient(180deg, #f8fafc, #e2e8f0);
   color: var(--text);
   padding: 0.45rem 0.85rem;
   min-height: 40px;
@@ -1037,25 +1037,25 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(180deg, #5eead4, var(--accent-dim));
-  border-color: rgba(34, 211, 238, 0.5);
-  color: #0a0f14;
+  background: linear-gradient(180deg, #7dd3fc, var(--accent-dim));
+  border-color: rgba(14, 165, 233, 0.45);
+  color: #0c4a6e;
   font-weight: 700;
 }
 
 /** 情境页第一步：引导点击「下一步」的呼吸灯（主按钮） */
 .btn-primary.btn-pulse {
   animation: btnPulse 2s ease-in-out infinite;
-  box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.45);
+  box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.35);
 }
 
 @keyframes btnPulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.35);
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.3);
   }
   50% {
-    box-shadow: 0 0 20px 4px rgba(34, 211, 238, 0.25);
+    box-shadow: 0 0 20px 4px rgba(14, 165, 233, 0.22);
   }
 }
 
@@ -1126,24 +1126,24 @@ body {
 
 /* ========== 国风卷轴主题（柴木棕 / 青灰蓝 / 薄香橙） ========== */
 .theme-guofeng {
-  --chai: #5c4033;
-  --chai-deep: #3d2a20;
-  --ink-blue: #6b7c8c;
-  --ink-bg: #4a5560;
-  --wash-orange: #e8a87c;
-  --persimmon: #d4a574;
-  --paper: #f3ede3;
-  --paper-edge: #d9cfc0;
-  --bg: #1c1915;
-  --bg-panel: #2a241c;
-  --elevated: #352c22;
-  --text: #f0ebe4;
-  --muted: #a89f93;
-  --accent: #e8a87c;
-  --accent-dim: #c97d52;
-  --warn: #d4a574;
-  --border: rgba(92, 64, 51, 0.35);
-  --glow: rgba(232, 168, 124, 0.35);
+  --chai: #6b5346;
+  --chai-deep: #4a3d32;
+  --ink-blue: #5a6a78;
+  --ink-bg: #94a3b8;
+  --wash-orange: #c97d52;
+  --persimmon: #b8956a;
+  --paper: #faf7f2;
+  --paper-edge: #e8e0d4;
+  --bg: #ebe4d8;
+  --bg-panel: #f4efe6;
+  --elevated: #ede6db;
+  --text: #2a2218;
+  --muted: #6b5e52;
+  --accent: #b45309;
+  --accent-dim: #9a3412;
+  --warn: #c2410c;
+  --border: rgba(92, 64, 51, 0.2);
+  --glow: rgba(201, 125, 82, 0.28);
   --font-ui: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
   --font-hand: "Ma Shan Zheng", "ZCOOL XiaoWei", cursive;
@@ -1151,7 +1151,7 @@ body {
 
 body.theme-guofeng {
   font-family: var(--font-ui);
-  background: radial-gradient(ellipse 120% 80% at 50% 0%, #2a3228 0%, var(--bg) 55%);
+  background: radial-gradient(ellipse 120% 80% at 50% 0%, #e2e8e0 0%, var(--bg) 55%);
 }
 
 .theme-guofeng .font-serif {
@@ -1159,15 +1159,15 @@ body.theme-guofeng {
 }
 
 .theme-guofeng .app-header {
-  background: linear-gradient(180deg, rgba(92, 64, 51, 0.25), transparent);
+  background: linear-gradient(180deg, rgba(92, 64, 51, 0.08), transparent);
 }
 
 .theme-guofeng .app-title {
   background: none;
-  color: var(--paper);
+  color: var(--chai-deep);
   -webkit-background-clip: unset;
   background-clip: unset;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
   font-family: var(--font-serif);
   letter-spacing: 0.08em;
 }
@@ -1177,7 +1177,7 @@ body.theme-guofeng {
 }
 
 .theme-guofeng .module-context-bar {
-  background: linear-gradient(180deg, var(--chai-deep), var(--elevated));
+  background: linear-gradient(180deg, #f5f0e8, var(--elevated));
   border-color: var(--border);
 }
 
@@ -1188,9 +1188,9 @@ body.theme-guofeng {
 
 /* 主舞台：卷轴 home 无内边距；其余模块为纸本底 */
 .theme-guofeng .main-stage {
-  background: linear-gradient(165deg, #252018 0%, #1a1510 100%);
+  background: linear-gradient(165deg, #f2ebe0 0%, #e5ddd0 100%);
   border-color: var(--border);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: 0 16px 40px rgba(42, 34, 24, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .theme-guofeng .main-stage::before {
@@ -1219,9 +1219,9 @@ body.theme-guofeng {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 88%, rgba(60, 72, 68, 0.5) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 30% 75%, rgba(100, 120, 130, 0.12) 0%, transparent 50%),
-    linear-gradient(185deg, #8a9eae40 0%, #4a556055 35%, #2a3228 70%, #1a1814 100%);
+    radial-gradient(ellipse 70% 55% at 50% 88%, rgba(180, 190, 185, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 30% 75%, rgba(200, 210, 215, 0.2) 0%, transparent 50%),
+    linear-gradient(185deg, #d4dce5 0%, #c5d0d8 35%, #a8b8c4 70%, #8a9eae 100%);
   pointer-events: none;
 }
 
@@ -1259,7 +1259,7 @@ body.theme-guofeng {
   height: 168px;
   opacity: 0.42;
   background:
-    linear-gradient(180deg, transparent 0%, rgba(35, 40, 44, 0.85) 8%, rgba(25, 28, 30, 0.95) 100%);
+    linear-gradient(180deg, transparent 0%, rgba(120, 130, 135, 0.55) 8%, rgba(90, 98, 105, 0.72) 100%);
   clip-path: polygon(
     45% 0,
     55% 0,
@@ -1299,9 +1299,9 @@ body.theme-guofeng {
   background: linear-gradient(180deg, #faf6ef 0%, var(--paper) 45%, #e5dcd0 100%);
   border-radius: 6px;
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.38),
-    inset 0 0 0 1px rgba(92, 64, 51, 0.12),
-    inset 0 2px 0 rgba(255, 255, 255, 0.35);
+    0 12px 32px rgba(42, 34, 24, 0.12),
+    inset 0 0 0 1px rgba(92, 64, 51, 0.1),
+    inset 0 2px 0 rgba(255, 255, 255, 0.55);
   transform-origin: center center;
   transform: scaleX(0.03);
   animation: guofengScrollUnroll 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -1693,12 +1693,12 @@ body.theme-guofeng {
 
 /* 子模块纸本面板 */
 .theme-guofeng .view-panel {
-  background: linear-gradient(180deg, rgba(45, 38, 28, 0.35) 0%, transparent 28%);
+  background: linear-gradient(180deg, rgba(253, 248, 240, 0.55) 0%, transparent 32%);
 }
 
 .theme-guofeng .view-title {
   font-family: var(--font-serif);
-  color: var(--paper);
+  color: var(--chai-deep);
   border-bottom: 1px solid var(--border);
   padding-bottom: 0.35rem;
 }
@@ -1715,7 +1715,7 @@ body.theme-guofeng {
 .theme-guofeng .heritage-tab,
 .theme-guofeng .calc-tab {
   border-color: var(--border);
-  background: rgba(30, 26, 20, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   color: var(--muted);
 }
 
@@ -1726,12 +1726,12 @@ body.theme-guofeng {
 }
 
 .theme-guofeng .global-bar {
-  background: linear-gradient(180deg, var(--chai-deep), #231c16);
+  background: linear-gradient(180deg, #f5f0e8, #ebe4d8);
   border-top-color: var(--border);
 }
 
 .theme-guofeng .btn {
-  background: linear-gradient(180deg, #4a3f34, #2e261e);
+  background: linear-gradient(180deg, #faf8f5, #e8e2d8);
   border-color: var(--border);
   color: var(--text);
 }
@@ -1829,7 +1829,7 @@ body.theme-guofeng {
   padding: 0.4rem 1rem;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(40, 32, 24, 0.9);
+  background: rgba(255, 252, 248, 0.95);
   color: var(--muted);
   font-size: 0.86rem;
   cursor: pointer;
@@ -1916,10 +1916,10 @@ body.theme-guofeng {
   max-width: 560px;
   margin: 0 auto;
   padding: 1rem 1.1rem;
-  background: linear-gradient(165deg, rgba(28, 24, 18, 0.98), rgba(18, 16, 12, 0.99));
-  border: 1px solid rgba(232, 168, 124, 0.25);
+  background: linear-gradient(165deg, #faf8f5 0%, #f0ebe3 100%);
+  border: 1px solid rgba(92, 64, 51, 0.22);
   border-radius: 12px;
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 10px 28px rgba(42, 34, 24, 0.1);
 }
 
 .extreme-quiz-board.quiz-shake-once {
@@ -1978,12 +1978,12 @@ body.theme-guofeng {
 .extreme-hint-slide {
   margin-top: 0.65rem;
   padding: 0.75rem 0.9rem;
-  background: rgba(248, 113, 113, 0.1);
-  border: 1px solid rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.3);
   border-radius: 8px;
   font-size: 0.84rem;
   line-height: 1.55;
-  color: #e8e0d8;
+  color: #5c4033;
   max-height: 0;
   opacity: 0;
   overflow: hidden;

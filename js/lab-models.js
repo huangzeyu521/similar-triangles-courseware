@@ -202,13 +202,13 @@
     ctx.clearRect(0, 0, Lw, Lh);
     ctx.save();
     ctx.scale(Lw / W, Lh / H);
-    ctx.fillStyle = "#0a0f18";
+    ctx.fillStyle = "#e8e4de";
     ctx.fillRect(0, 0, W, H);
 
     /** 操场地面 */
-    ctx.fillStyle = "#152238";
+    ctx.fillStyle = "#c5d0dc";
     ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
-    ctx.strokeStyle = "#334155";
+    ctx.strokeStyle = "#64748b";
     ctx.beginPath();
     ctx.moveTo(0, GROUND_Y);
     ctx.lineTo(W, GROUND_Y);
@@ -325,14 +325,14 @@
     ctx.beginPath();
     ctx.arc(this.sun.x, this.sun.y, 22, 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = "#0f172a";
+    ctx.fillStyle = "#334155";
     ctx.font = "12px sans-serif";
     ctx.fillText("拖太阳", this.sun.x - 20, this.sun.y + 38);
 
     ctx.restore();
 
     /** 说明文字固定在画布左上角，不随场景平移 */
-    ctx.fillStyle = "#94a3b8";
+    ctx.fillStyle = "#475569";
     ctx.font = "13px sans-serif";
     ctx.fillText("旗杆影长 ≈ " + Math.abs(sl.shadowFlag).toFixed(0) + " px  人影长 ≈ " + Math.abs(sl.shadowPerson).toFixed(0) + " px", 24, 28);
     ctx.fillText("同一组平行光线 → 两直角三角形相似（对应边成比例）", 24, 48);
@@ -626,17 +626,17 @@
     var pxPerM = 20;
     var devM = devPx / pxPerM;
 
-    ctx.fillStyle = "#0a0f18";
+    ctx.fillStyle = "#e8edf4";
     ctx.fillRect(0, 0, W, H);
 
     /** 天空渐变 */
     var g = ctx.createLinearGradient(0, 0, 0, gy);
-    g.addColorStop(0, "#0f172a");
-    g.addColorStop(1, "#1e293b");
+    g.addColorStop(0, "#cfe4f7");
+    g.addColorStop(1, "#b8cce0");
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, W, gy);
 
-    ctx.strokeStyle = "#475569";
+    ctx.strokeStyle = "#78909c";
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(0, gy);
@@ -702,7 +702,7 @@
       }
     }
 
-    ctx.fillStyle = "#e2e8f0";
+    ctx.fillStyle = "#334155";
     ctx.font = "12px Segoe UI, Microsoft YaHei, sans-serif";
     ctx.fillText("人眼", eyeX - 10, eyeY - 12);
     ctx.fillText("标杆", poleBaseX - 12, gy + 16);

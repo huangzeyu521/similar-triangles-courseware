@@ -178,12 +178,12 @@
   /** 水墨远山与暮色天空 */
   HeritageLab.prototype._drawSky = function (ctx) {
     var g = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
-    g.addColorStop(0, "#3d2a1f");
-    g.addColorStop(0.45, "#2a1a14");
-    g.addColorStop(1, "#1a100c");
+    g.addColorStop(0, "#c5d5e3");
+    g.addColorStop(0.45, "#a8bcc8");
+    g.addColorStop(1, "#8fa9b5");
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, W, GROUND_Y);
-    ctx.fillStyle = "rgba(20, 12, 8, 0.35)";
+    ctx.fillStyle = "rgba(120, 110, 100, 0.2)";
     ctx.beginPath();
     ctx.moveTo(0, GROUND_Y - 40);
     ctx.bezierCurveTo(200, GROUND_Y - 120, 400, GROUND_Y - 60, W, GROUND_Y - 80);
@@ -252,7 +252,7 @@
     ctx.save();
     ctx.scale(Lw / W, Lh / H);
     this._drawSky(ctx);
-    ctx.fillStyle = "#2d2520";
+    ctx.fillStyle = "#d4ccc0";
     ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
     ctx.strokeStyle = "rgba(180, 160, 130, 0.2)";
     ctx.beginPath();
@@ -366,7 +366,7 @@
 
     ctx.restore();
 
-    ctx.fillStyle = "#e7e5e4";
+    ctx.fillStyle = "#475569";
     ctx.font = "13px Microsoft YaHei, sans-serif";
     ctx.fillText("古塔影 ≈ " + Math.abs(sl.shadowTower).toFixed(0) + " px　木表影 ≈ " + Math.abs(sl.shadowBiao).toFixed(0) + " px", 20, 28);
     ctx.fillText("八尺木表 · 与塔影构成相似直角三角形", 20, 48);
@@ -398,7 +398,7 @@
     ctx.beginPath();
     ctx.arc(eyeX, eyeY, 8, 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = "#e7e5e4";
+    ctx.fillStyle = "#334155";
     ctx.font = "12px Microsoft YaHei, sans-serif";
     ctx.fillText("工匠目", eyeX - 20, eyeY - 14);
 
@@ -477,7 +477,7 @@
       ctx.fillText("拖木杆或工匠站位，使目、杆顶、城垛顶共线", 22, 28);
     }
 
-    ctx.fillStyle = "#d6d3d1";
+    ctx.fillStyle = "#475569";
     ctx.font = "12px Microsoft YaHei, sans-serif";
     ctx.fillText("城墙 · 测绘杆", 22, H - 22);
   };
