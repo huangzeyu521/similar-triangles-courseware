@@ -87,16 +87,18 @@
   }
 
   /**
-   * 画布容器有明确高度时：优先用满容器宽度；若按 16:9 算出的高度超出剩余高度，则只压高度、不缩宽度，避免两侧留白。
-   * 绘制仍用 scale(Lw/W, Lh/H)，极端情况下与逻辑宽高比略有出入。
+   * 在容器内「contain」适配：统一缩放系数 s = min(宽/W, 高/H)，保证 Lw/W === Lh/H，
+   * 与 _draw 中 scale(Lw/W, Lh/H) 一致，太阳与文字不变形（接受两侧或上下少量留白）。
    */
   function fitCanvasToWrap(wrap, logicalW, logicalH) {
-    var cw = Math.max(1, (wrap && wrap.clientWidth) || logicalW);
-    var chAvail = wrap && wrap.clientHeight > 0 ? wrap.clientHeight : 0;
-    var lh = Math.round((cw * logicalH) / logicalW);
-    if (chAvail > 0 && lh > chAvail) {
-      lh = Math.max(1, Math.floor(chAvail));
-    }
+    var maxW = Math.max(1, (wrap && wrap.clientWidth) || logicalW);
+    var maxH =
+      wrap && wrap.clientHeight > 0
+        ? wrap.clientHeight
+        : Math.round((maxW * logicalH) / logicalW);
+    var s = Math.min(maxW / logicalW, maxH / logicalH);
+    var cw = Math.max(1, Math.round(s * logicalW));
+    var lh = Math.max(1, Math.round(s * logicalH));
     return { cw: cw, lh: lh };
   }
 

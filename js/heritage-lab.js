@@ -75,12 +75,14 @@
   }
 
   function fitCanvasToWrap(wrap, logicalW, logicalH) {
-    var cw = Math.max(1, (wrap && wrap.clientWidth) || logicalW);
-    var chAvail = wrap && wrap.clientHeight > 0 ? wrap.clientHeight : 0;
-    var lh = Math.round((cw * logicalH) / logicalW);
-    if (chAvail > 0 && lh > chAvail) {
-      lh = Math.max(1, Math.floor(chAvail));
-    }
+    var maxW = Math.max(1, (wrap && wrap.clientWidth) || logicalW);
+    var maxH =
+      wrap && wrap.clientHeight > 0
+        ? wrap.clientHeight
+        : Math.round((maxW * logicalH) / logicalW);
+    var s = Math.min(maxW / logicalW, maxH / logicalH);
+    var cw = Math.max(1, Math.round(s * logicalW));
+    var lh = Math.max(1, Math.round(s * logicalH));
     return { cw: cw, lh: lh };
   }
 
