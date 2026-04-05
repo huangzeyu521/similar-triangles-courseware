@@ -639,6 +639,14 @@ body {
   overflow: hidden;
 }
 
+/** 标杆法：容器底图（与情境挑战可共用 `flag1.png`，可替换为任意实景旗杆图） */
+#view-lab .lab-canvas-wrap.lab-canvas-wrap--pole-bg {
+  background-image: url("flag1.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+
 #view-lab .lab-hint {
   flex: 0 0 auto;
   margin-top: 0.35rem;

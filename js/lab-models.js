@@ -224,6 +224,10 @@
 
   MeasureLab.prototype.setMode = function (m) {
     this.mode = m;
+    var wrap = this.canvas && this.canvas.parentElement;
+    if (wrap) {
+      wrap.classList.toggle("lab-canvas-wrap--pole-bg", m === "pole");
+    }
   };
 
   MeasureLab.prototype._draw = function () {
@@ -235,12 +239,18 @@
     ctx.clearRect(0, 0, Lw, Lh);
     ctx.save();
     ctx.scale(Lw / W, Lh / H);
-    ctx.fillStyle = "#e8e4de";
-    ctx.fillRect(0, 0, W, H);
+    if (this.mode === "pole") {
+      /** 标杆法：天空区透明以露出容器上的实景背景；仅轻铺地面便于读数 */
+      ctx.fillStyle = "rgba(197, 208, 220, 0.42)";
+      ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
+    } else {
+      ctx.fillStyle = "#e8e4de";
+      ctx.fillRect(0, 0, W, H);
 
-    /** 操场地面 */
-    ctx.fillStyle = "#c5d0dc";
-    ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
+      /** 操场地面 */
+      ctx.fillStyle = "#c5d0dc";
+      ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
+    }
     ctx.strokeStyle = "#64748b";
     ctx.beginPath();
     ctx.moveTo(0, GROUND_Y);
@@ -449,7 +459,7 @@
   };
 
   /**
-   * 标杆法：拖标杆与人物，三点共线时绿色射线 + A 字嵌套
+   * 标杆法：拖标杆与人物；三点共线时以人眼为顶点、沿眼高水平线作 A 字型嵌套高亮（剔除人身高后的相似关系）。
    */
   MeasureLab.prototype._drawPole = function (ctx) {
     var flagX = this.flagX;
@@ -463,58 +473,73 @@
     var col = collinearSlope(eyeX, eyeY, poleX, poleTopY, flagX, flagTopY, 0.012);
     var ok = col.ok;
 
-    ctx.strokeStyle = ok ? "#4ade80" : "rgba(250, 204, 21, 0.85)";
-    ctx.lineWidth = ok ? 5 : 2;
-    ctx.beginPath();
-    ctx.moveTo(eyeX, eyeY);
-    ctx.lineTo(flagX, flagTopY);
-    ctx.stroke();
-
-    /** 旗杆与标杆 */
-    ctx.strokeStyle = "#94a3b8";
-    ctx.lineWidth = 4;
+    /** 旗杆与标杆（先画实体，再高亮与视线） */
+    ctx.strokeStyle = "#64748b";
+    ctx.lineWidth = 5;
     ctx.beginPath();
     ctx.moveTo(flagX, GROUND_Y);
     ctx.lineTo(flagX, flagTopY);
     ctx.stroke();
-    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#8b5a3c";
+    ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(poleX, GROUND_Y);
     ctx.lineTo(poleX, poleTopY);
     ctx.stroke();
 
-    ctx.fillStyle = "#38bdf8";
+    if (ok) {
+      /** 大三角：人眼 — 旗杆顶 — 旗杆在眼高水平线上的垂足点 */
+      ctx.fillStyle = "rgba(251, 146, 60, 0.38)";
+      ctx.beginPath();
+      ctx.moveTo(eyeX, eyeY);
+      ctx.lineTo(flagX, flagTopY);
+      ctx.lineTo(flagX, eyeY);
+      ctx.closePath();
+      ctx.fill();
+      /** 小三角：人眼 — 标杆顶 — 标杆在眼高水平线上的垂足点 */
+      ctx.fillStyle = "rgba(34, 197, 94, 0.4)";
+      ctx.beginPath();
+      ctx.moveTo(eyeX, eyeY);
+      ctx.lineTo(poleX, poleTopY);
+      ctx.lineTo(poleX, eyeY);
+      ctx.closePath();
+      ctx.fill();
+      /** 眼高水平辅助线（人眼 — 旗杆一侧） */
+      ctx.setLineDash([6, 6]);
+      ctx.strokeStyle = "rgba(100, 116, 139, 0.85)";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(eyeX, eyeY);
+      ctx.lineTo(flagX, eyeY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    /** 视线：人眼 → 旗杆顶 */
+    ctx.strokeStyle = ok ? "#22c55e" : "rgba(250, 204, 21, 0.9)";
+    ctx.lineWidth = ok ? 4 : 2;
+    ctx.beginPath();
+    ctx.moveTo(eyeX, eyeY);
+    ctx.lineTo(flagX, flagTopY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#0ea5e9";
     ctx.beginPath();
     ctx.arc(eyeX, eyeY, 7, 0, Math.PI * 2);
     ctx.fill();
 
     if (ok) {
-      ctx.fillStyle = "rgba(74, 222, 128, 0.15)";
-      /** 大三角形 */
-      ctx.beginPath();
-      ctx.moveTo(footX, GROUND_Y);
-      ctx.lineTo(flagX, flagTopY);
-      ctx.lineTo(flagX, GROUND_Y);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillStyle = "rgba(34, 211, 238, 0.12)";
-      ctx.beginPath();
-      ctx.moveTo(footX, GROUND_Y);
-      ctx.lineTo(poleX, poleTopY);
-      ctx.lineTo(poleX, GROUND_Y);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillStyle = "#4ade80";
-      ctx.font = "bold 14px sans-serif";
-      ctx.fillText("三点共线 · A 字型嵌套相似", 24, 28);
+      ctx.fillStyle = "#15803d";
+      ctx.font = "bold 14px Segoe UI, Microsoft YaHei, sans-serif";
+      ctx.fillText("三点共线 · A 字型相似（以眼高水平线为底）", 24, 28);
     } else {
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "13px sans-serif";
+      ctx.fillStyle = "#64748b";
+      ctx.font = "13px Segoe UI, Microsoft YaHei, sans-serif";
       ctx.fillText("|k1−k2| = " + Math.abs(col.k1 - col.k2).toFixed(4) + "（对齐后应小于阈值）", 24, 28);
     }
 
-    ctx.fillStyle = "#e2e8f0";
-    ctx.font = "12px sans-serif";
+    ctx.fillStyle = "#475569";
+    ctx.font = "12px Segoe UI, Microsoft YaHei, sans-serif";
     ctx.fillText("拖标杆基座 / 拖人（脚的位置）", 24, H - 24);
   };
 
