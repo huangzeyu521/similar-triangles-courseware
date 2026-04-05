@@ -1395,8 +1395,8 @@ body.theme-guofeng {
   align-items: center;
   justify-items: center;
   width: 100%;
-  min-height: 300px;
-  padding: 0.35rem 0 0.85rem;
+  min-height: 360px;
+  padding: 0.25rem 0 0.75rem;
 }
 
 .theme-guofeng .quest-path-ink {
@@ -1492,42 +1492,44 @@ body.theme-guofeng {
   }
 }
 
-/* 七关坐标：蛇形路线 — 第壹～肆关顶行从左到右；第伍～终章底行从右到左（5→6→7） */
+/* 七关坐标：蜿蜒折线 */
 .theme-guofeng .map-node--1 {
   grid-column: 1 / 3;
   grid-row: 1;
-  justify-self: center;
-  margin-left: 0;
+  justify-self: start;
+  margin-left: 0.25rem;
 }
 .theme-guofeng .map-node--2 {
-  grid-column: 3 / 5;
+  grid-column: 4 / 6;
   grid-row: 1;
 }
+/* 第叁关 ↔ 第肆关：仅交换网格位置（内容与 data-target 仍在 HTML 原 map-node--n） */
 .theme-guofeng .map-node--3 {
-  grid-column: 5 / 7;
-  grid-row: 1;
+  grid-column: 4 / 7;
+  grid-row: 2;
 }
 .theme-guofeng .map-node--4 {
   grid-column: 7 / 10;
   grid-row: 1;
   justify-self: end;
-  margin-right: 0.2rem;
+  margin-right: 0.25rem;
 }
+/* 第伍关 ↔ 第陆关：仅交换网格位置 */
 .theme-guofeng .map-node--5 {
-  grid-column: 7 / 10;
-  grid-row: 2;
+  grid-column: 6 / 10;
+  grid-row: 3;
   justify-self: end;
-  margin-right: 0.2rem;
+  margin-right: 0.35rem;
 }
 .theme-guofeng .map-node--6 {
-  grid-column: 5 / 7;
-  grid-row: 2;
+  grid-column: 1 / 4;
+  grid-row: 3;
+  justify-self: start;
+  margin-left: 0.5rem;
 }
 .theme-guofeng .map-node--7 {
-  grid-column: 1 / 5;
-  grid-row: 2;
-  justify-self: start;
-  margin-left: 0.35rem;
+  grid-column: 3 / 8;
+  grid-row: 4;
 }
 
 .theme-guofeng .map-node--boss .nav-slip--map {
