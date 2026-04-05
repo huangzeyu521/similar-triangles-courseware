@@ -74,6 +74,17 @@
     return { k1: k1, k2: k2, ok: Math.abs(k1 - k2) < eps };
   }
 
+  function fitCanvasToWrap(wrap, logicalW, logicalH) {
+    var cw = Math.max(1, (wrap && wrap.clientWidth) || logicalW);
+    var chAvail = wrap && wrap.clientHeight > 0 ? wrap.clientHeight : 0;
+    var lh = Math.round((cw * logicalH) / logicalW);
+    if (chAvail > 0 && lh > chAvail) {
+      lh = Math.max(1, Math.floor(chAvail));
+      cw = Math.max(1, Math.round((lh * logicalW) / logicalH));
+    }
+    return { cw: cw, lh: lh };
+  }
+
   function HeritageLab(canvasEl) {
     this.canvas = canvasEl;
     this.ctx = canvasEl.getContext("2d");
@@ -94,9 +105,10 @@
 
   HeritageLab.prototype._resize = function () {
     var wrap = this.canvas.parentElement;
-    var cw = Math.max(1, (wrap && wrap.clientWidth) || W);
+    var sz = fitCanvasToWrap(wrap, W, H);
+    var cw = sz.cw;
     this._lw = cw;
-    this._lh = Math.round((cw * H) / W);
+    this._lh = sz.lh;
     this._scale = cw / W;
     this.canvas.style.width = cw + "px";
     this.canvas.style.height = this._lh + "px";

@@ -604,7 +604,8 @@ body {
 
 #lab-canvas {
   display: block;
-  width: 100%;
+  max-width: 100%;
+  width: auto;
   height: auto;
   vertical-align: middle;
   touch-action: none;
@@ -614,6 +615,36 @@ body {
   margin: 0.5rem 0 0;
   font-size: 0.82rem;
   color: var(--muted);
+}
+
+/* 测绘局：工具栏 + 画布 + 提示 收入主舞台首屏，画布区占满剩余高度，避免 .view 内部滚动条 */
+#view-lab.view {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#view-lab .lab-toolbar {
+  flex: 0 0 auto;
+}
+
+#view-lab .lab-canvas-wrap {
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#view-lab .lab-hint {
+  flex: 0 0 auto;
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
 }
 
 /* 数据速算 */

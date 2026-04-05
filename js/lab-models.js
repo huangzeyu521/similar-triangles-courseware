@@ -86,6 +86,20 @@
     return { k1: k1, k2: k2, ok: Math.abs(k1 - k2) < eps };
   }
 
+  /**
+   * 画布容器有明确高度时（flex 剩余空间），若按宽度算出的高度超出则改为按高度缩放，避免主舞台内出现滚动条。
+   */
+  function fitCanvasToWrap(wrap, logicalW, logicalH) {
+    var cw = Math.max(1, (wrap && wrap.clientWidth) || logicalW);
+    var chAvail = wrap && wrap.clientHeight > 0 ? wrap.clientHeight : 0;
+    var lh = Math.round((cw * logicalH) / logicalW);
+    if (chAvail > 0 && lh > chAvail) {
+      lh = Math.max(1, Math.floor(chAvail));
+      cw = Math.max(1, Math.round((lh * logicalW) / logicalH));
+    }
+    return { cw: cw, lh: lh };
+  }
+
   function MeasureLab(canvasEl) {
     this.canvas = canvasEl;
     this.ctx = canvasEl.getContext("2d");
@@ -108,10 +122,11 @@
 
   MeasureLab.prototype._resize = function () {
     var wrap = this.canvas.parentElement;
-    /** 与容器同宽，避免卷轴拉宽后右侧仅露底色；逻辑坐标仍为 960×540，在 _draw 中 scale 映射 */
-    var cw = Math.max(1, (wrap && wrap.clientWidth) || W);
+    /** 与容器同宽（或受剩余高度限制缩小），逻辑坐标仍为 960×540，在 _draw 中 scale 映射 */
+    var sz = fitCanvasToWrap(wrap, W, H);
+    var cw = sz.cw;
     this._lw = cw;
-    this._lh = Math.round((cw * H) / W);
+    this._lh = sz.lh;
     this._scale = cw / W;
     this.canvas.style.width = cw + "px";
     this.canvas.style.height = this._lh + "px";
@@ -518,9 +533,10 @@
 
   ErrorAmpLab.prototype._resize = function () {
     var wrap = this.canvas.parentElement;
-    var cw = Math.max(1, (wrap && wrap.clientWidth) || this.W);
+    var sz = fitCanvasToWrap(wrap, this.W, this.H);
+    var cw = sz.cw;
     this._lw = cw;
-    this._lh = Math.round((cw * this.H) / this.W);
+    this._lh = sz.lh;
     this._scale = cw / this.W;
     this.canvas.style.width = cw + "px";
     this.canvas.style.height = this._lh + "px";
