@@ -1376,29 +1376,109 @@ body.theme-guofeng {
 }
 
 .theme-guofeng .quest-map-subtitle {
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.35rem;
   text-align: center;
   font-size: clamp(0.78rem, 1.6vw, 0.88rem);
   color: #6b5c4a;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.12em;
   font-family: var(--font-serif);
 }
 
-/* ========== 测绘闯关图：3×2 六大关 + 第三行终章（对齐清晰，避免散乱坐标） ========== */
+.theme-guofeng .quest-map-kicker {
+  margin: 0 0 0.65rem;
+  text-align: center;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.55em;
+  color: rgba(180, 83, 9, 0.75);
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.35);
+}
+
+/* ========== 测绘闯关图：游戏化蛇形地图（3×2 + BOSS） ========== */
 .theme-guofeng .quest-map {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  min-height: 280px;
+  padding: 0.25rem 0 0.85rem;
+}
+
+.theme-guofeng .quest-map--gameboard {
+  isolation: isolate;
+}
+
+.theme-guofeng .quest-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: repeat(3, auto);
-  gap: 0.65rem 0.85rem;
-  align-items: stretch;
-  justify-items: stretch;
+  gap: 0.65rem 0.55rem;
   width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
-  min-height: auto;
-  padding: 0.35rem 0 0.85rem;
+  max-width: 880px;
+  position: relative;
+  z-index: 2;
+}
+
+.theme-guofeng .quest-row--a {
+  padding-top: 1.35rem;
+}
+
+.theme-guofeng .quest-row--a::before {
+  content: "第一幕 · 情境 → 测绘局 → 算学馆";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--chai-deep);
+  opacity: 0.78;
+  font-family: var(--font-serif);
+  white-space: nowrap;
+}
+
+.theme-guofeng .quest-row--b {
+  padding-top: 1.35rem;
+}
+
+.theme-guofeng .quest-row--b::before {
+  content: "第二幕 · 古建沉浸 → 鉴误 → 科举";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--chai-deep);
+  opacity: 0.78;
+  font-family: var(--font-serif);
+  white-space: nowrap;
+}
+
+.theme-guofeng .quest-row--boss {
+  grid-template-columns: 1fr;
+  max-width: 300px;
+  justify-items: center;
+  padding-top: 1.1rem;
+}
+
+.theme-guofeng .quest-row--boss::before {
+  content: "终章 · 极限 BOSS";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: #c2410c;
+  font-family: var(--font-serif);
+  text-shadow: 0 0 18px rgba(251, 146, 60, 0.45);
+  white-space: nowrap;
 }
 
 .theme-guofeng .quest-path-ink {
@@ -1456,8 +1536,7 @@ body.theme-guofeng {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: none;
-  min-width: 0;
+  max-width: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1465,15 +1544,16 @@ body.theme-guofeng {
 }
 
 .theme-guofeng .map-step-badge {
-  font-size: 0.62rem;
-  letter-spacing: 0.15em;
-  color: #8b5a2b;
-  font-family: var(--font-serif);
-  background: linear-gradient(180deg, rgba(255, 248, 235, 0.95), rgba(232, 210, 180, 0.85));
-  border: 1px solid rgba(139, 90, 43, 0.35);
-  padding: 0.12rem 0.45rem;
-  border-radius: 999px;
-  box-shadow: 0 2px 6px rgba(60, 40, 20, 0.12);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #9a3412;
+  font-family: var(--font-ui);
+  background: linear-gradient(180deg, #fff7ed, #ffedd5);
+  border: 1px solid rgba(234, 88, 12, 0.35);
+  padding: 0.14rem 0.5rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.12);
   white-space: nowrap;
 }
 
@@ -1495,52 +1575,6 @@ body.theme-guofeng {
   }
 }
 
-/* 关卡栅格：第 1～6 关两行三列；终章独占一行居中 */
-.theme-guofeng .map-node--1 {
-  grid-column: 1;
-  grid-row: 1;
-  justify-self: stretch;
-  margin: 0;
-}
-.theme-guofeng .map-node--2 {
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: stretch;
-  margin: 0;
-}
-.theme-guofeng .map-node--3 {
-  grid-column: 3;
-  grid-row: 1;
-  justify-self: stretch;
-  margin: 0;
-}
-.theme-guofeng .map-node--4 {
-  grid-column: 1;
-  grid-row: 2;
-  justify-self: stretch;
-  margin: 0;
-}
-.theme-guofeng .map-node--5 {
-  grid-column: 2;
-  grid-row: 2;
-  justify-self: stretch;
-  margin: 0;
-}
-.theme-guofeng .map-node--6 {
-  grid-column: 3;
-  grid-row: 2;
-  justify-self: stretch;
-  margin: 0;
-}
-.theme-guofeng .map-node--7 {
-  grid-column: 1 / -1;
-  grid-row: 3;
-  justify-self: center;
-  max-width: 280px;
-  width: 100%;
-  margin: 0.15rem auto 0;
-}
-
 .theme-guofeng .map-node--boss .nav-slip--map {
   border-width: 2px;
   box-shadow: 0 6px 22px rgba(212, 165, 116, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
@@ -1548,7 +1582,7 @@ body.theme-guofeng {
 
 .theme-guofeng .nav-slip--map {
   width: 100%;
-  max-width: none;
+  max-width: 220px;
   position: relative;
   appearance: none;
   cursor: pointer;
@@ -1568,26 +1602,26 @@ body.theme-guofeng {
   animation: slipFadeIn 0.55s ease forwards;
 }
 
-.theme-guofeng .quest-map .map-node:nth-child(4) .nav-slip--map {
+.theme-guofeng .map-node--1 .nav-slip--map {
+  animation-delay: 0s;
+}
+.theme-guofeng .map-node--2 .nav-slip--map {
   animation-delay: 0.05s;
 }
-.theme-guofeng .quest-map .map-node:nth-child(5) .nav-slip--map {
+.theme-guofeng .map-node--3 .nav-slip--map {
   animation-delay: 0.1s;
 }
-.theme-guofeng .quest-map .map-node:nth-child(6) .nav-slip--map {
+.theme-guofeng .map-node--4 .nav-slip--map {
   animation-delay: 0.15s;
 }
-.theme-guofeng .quest-map .map-node:nth-child(7) .nav-slip--map {
+.theme-guofeng .map-node--5 .nav-slip--map {
   animation-delay: 0.2s;
 }
-.theme-guofeng .quest-map .map-node:nth-child(8) .nav-slip--map {
+.theme-guofeng .map-node--6 .nav-slip--map {
   animation-delay: 0.25s;
 }
-.theme-guofeng .quest-map .map-node:nth-child(9) .nav-slip--map {
-  animation-delay: 0.3s;
-}
-.theme-guofeng .quest-map .map-node:nth-child(10) .nav-slip--map {
-  animation-delay: 0.35s;
+.theme-guofeng .map-node--7 .nav-slip--map {
+  animation-delay: 0.32s;
 }
 @keyframes slipFadeIn {
   from {
@@ -1787,31 +1821,31 @@ body.theme-guofeng {
   margin-top: 0.5rem;
 }
 
-/* 窄屏：闯关图改为单列「登山径」，仍保留墨线背景 */
+/* 窄屏：闯关图单列瀑布流，分幕标签自动换行 */
 @media (max-width: 900px) {
   .theme-guofeng .quest-map {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    gap: 0.55rem;
     min-height: auto;
     padding-bottom: 1rem;
   }
   .theme-guofeng .quest-path-ink {
-    opacity: 0.35;
+    opacity: 0.22;
   }
-  .theme-guofeng .map-node--1,
-  .theme-guofeng .map-node--2,
-  .theme-guofeng .map-node--3,
-  .theme-guofeng .map-node--4,
-  .theme-guofeng .map-node--5,
-  .theme-guofeng .map-node--6,
-  .theme-guofeng .map-node--7 {
-    grid-column: 1 / -1;
-    grid-row: auto;
-    justify-self: center;
-    margin-left: 0;
-    margin-right: 0;
+  .theme-guofeng .quest-row,
+  .theme-guofeng .quest-row--boss {
+    grid-template-columns: 1fr;
+    max-width: min(100%, 360px);
+  }
+  .theme-guofeng .quest-row--a::before,
+  .theme-guofeng .quest-row--b::before,
+  .theme-guofeng .quest-row--boss::before {
+    white-space: normal;
+    text-align: center;
+    width: 92%;
+    line-height: 1.35;
+  }
+  .theme-guofeng .map-node {
     max-width: min(100%, 340px);
+    justify-self: center;
   }
 }
 
