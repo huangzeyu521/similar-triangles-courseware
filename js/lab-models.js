@@ -14,8 +14,8 @@
   var PERSON_H = 32;
   var POLE_H = 60;
   var EYE_OFFSET = 28;
-  /** 平面镜法：人眼距地面高度（像素，越小表示人眼越低） */
-  var MIRROR_EYE_ABOVE_GROUND = 100;
+  /** 平面镜法：人眼距地面高度（像素；调低后左右相似三角形更明显） */
+  var MIRROR_EYE_ABOVE_GROUND = 60;
 
   function clamp(v, a, b) {
     return Math.max(a, Math.min(b, v));
@@ -387,9 +387,10 @@
   };
 
   /**
-   * 平面镜法：蝴蝶型相似；反射光线经过人眼时高亮
+   * 平面镜法：入射/反射光路；对齐时以镜面垂足为公共顶点，渲染左右两个红色相似直角三角形（人侧△、物侧△）。
    */
   MeasureLab.prototype._drawMirror = function (ctx) {
+    var flagX = this.flagX;
     var flagTopX = this.flagX;
     var flagTopY = GROUND_Y - FLAG_H;
     var mx = this.mirrorX;
@@ -400,50 +401,86 @@
     var refl = mirrorReflect(flagTopX, flagTopY, mx, my, eyeX, eyeY);
     var ok = refl.hitDist < 14;
 
-    ctx.strokeStyle = ok ? "#4ade80" : "rgba(250, 204, 21, 0.9)";
-    ctx.lineWidth = ok ? 4 : 2;
+    /** 旗杆 */
+    ctx.strokeStyle = "#64748b";
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(flagX, GROUND_Y);
+    ctx.lineTo(flagX, flagTopY);
+    ctx.stroke();
+
+    /** 人眼与竖直站立（脚与眼同一 x，便于与参考一致画左右△） */
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(eyeX, eyeY);
+    ctx.lineTo(eyeX, GROUND_Y);
+    ctx.stroke();
+
+    /** 镜面（先于红色填充，避免遮挡镜面条） */
+    ctx.fillStyle = "#5eead4";
+    ctx.fillRect(mx - 24, my - 4, 48, 8);
+    ctx.strokeStyle = "rgba(15, 118, 110, 0.6)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(mx - 24, my - 4, 48, 8);
+    ctx.fillStyle = "#334155";
+    ctx.font = "12px Segoe UI, Microsoft YaHei, sans-serif";
+    ctx.fillText("镜子（拖动）", mx - 36, my + 22);
+
+    /** 对齐：左右两个半透明红色相似三角形（镜面接地点为公共顶点之一侧） */
+    if (ok) {
+      ctx.fillStyle = "rgba(220, 38, 38, 0.38)";
+      /** 左侧△：人眼 — 脚 — 镜边（地面） */
+      ctx.beginPath();
+      ctx.moveTo(eyeX, eyeY);
+      ctx.lineTo(eyeX, GROUND_Y);
+      ctx.lineTo(mx, GROUND_Y);
+      ctx.closePath();
+      ctx.fill();
+      /** 右侧△：旗杆顶 — 杆脚 — 镜边（地面） */
+      ctx.fillStyle = "rgba(185, 28, 28, 0.4)";
+      ctx.beginPath();
+      ctx.moveTo(flagTopX, flagTopY);
+      ctx.lineTo(flagX, GROUND_Y);
+      ctx.lineTo(mx, GROUND_Y);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    /** 入射光：杆顶 → 镜面 */
+    ctx.strokeStyle = ok ? "#22c55e" : "rgba(250, 204, 21, 0.95)";
+    ctx.lineWidth = ok ? 3 : 2;
     ctx.beginPath();
     ctx.moveTo(flagTopX, flagTopY);
     ctx.lineTo(mx, my);
-    var t = 500;
-    ctx.lineTo(mx + refl.rx * t, my + refl.ry * t);
     ctx.stroke();
 
-    /** 镜面 */
-    ctx.fillStyle = "#94a3b8";
-    ctx.fillRect(mx - 24, my - 4, 48, 8);
-    ctx.fillStyle = "#e2e8f0";
-    ctx.font = "12px sans-serif";
-    ctx.fillText("镜子（拖动）", mx - 36, my + 22);
-
-    /** 旗杆与人眼 */
-    ctx.strokeStyle = "#cbd5e1";
-    ctx.lineWidth = 4;
+    /** 反射光：镜面 → 人眼（未对齐时沿反射方向延长示意） */
     ctx.beginPath();
-    ctx.moveTo(flagTopX, GROUND_Y);
-    ctx.lineTo(flagTopX, flagTopY);
+    ctx.moveTo(mx, my);
+    if (ok) {
+      ctx.lineTo(eyeX, eyeY);
+    } else {
+      var t = 520;
+      ctx.lineTo(mx + refl.rx * t, my + refl.ry * t);
+    }
     ctx.stroke();
-    ctx.fillStyle = "#38bdf8";
+
+    ctx.fillStyle = "#0ea5e9";
     ctx.beginPath();
     ctx.arc(eyeX, eyeY, 8, 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = "#e2e8f0";
+    ctx.fillStyle = "#1e293b";
+    ctx.font = "12px Segoe UI, Microsoft YaHei, sans-serif";
     ctx.fillText("人眼", eyeX - 14, eyeY - 14);
 
     if (ok) {
-      ctx.fillStyle = "rgba(74, 222, 128, 0.2)";
-      ctx.beginPath();
-      ctx.moveTo(flagTopX, flagTopY);
-      ctx.lineTo(mx, my);
-      ctx.lineTo(eyeX, eyeY);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillStyle = "#4ade80";
-      ctx.font = "bold 14px sans-serif";
-      ctx.fillText("捕捉到视觉光线！", 24, 28);
+      ctx.fillStyle = "#15803d";
+      ctx.font = "bold 14px Segoe UI, Microsoft YaHei, sans-serif";
+      ctx.fillText("左右相似三角形锁定 · 反射光进入人眼", 24, 28);
     } else {
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "13px sans-serif";
+      ctx.fillStyle = "#64748b";
+      ctx.font = "13px Segoe UI, Microsoft YaHei, sans-serif";
       ctx.fillText("拖动镜子使反射光经过人眼（反射角=入射角）", 24, 28);
     }
   };
