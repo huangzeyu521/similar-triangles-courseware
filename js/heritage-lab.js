@@ -80,7 +80,6 @@
     var lh = Math.round((cw * logicalH) / logicalW);
     if (chAvail > 0 && lh > chAvail) {
       lh = Math.max(1, Math.floor(chAvail));
-      cw = Math.max(1, Math.round((lh * logicalW) / logicalH));
     }
     return { cw: cw, lh: lh };
   }
