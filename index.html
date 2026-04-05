@@ -42,139 +42,123 @@
               <div class="scroll-paper-edge scroll-paper-edge--right" aria-hidden="true"></div>
               <div class="scroll-inner scroll-inner--quest">
                 <p class="scroll-tagline font-serif">以相似三角形 · 丈量天地</p>
-                <p class="quest-map-subtitle">关卡地图 · 六关进阶 + 终章 BOSS · 蛇形路线一次看清</p>
-                <p class="quest-map-kicker" aria-hidden="true">LEVEL MAP</p>
-                <!-- 游戏化排版：3×2 蛇形推进 + 底行 BOSS；墨线轨迹与关卡对齐 -->
-                <div class="quest-map quest-map--gameboard" role="navigation" aria-label="测绘闯关路线">
-                  <svg class="quest-path-ink" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <p class="quest-map-subtitle">闯关路线 · 自第1关顺序推进至终局（与底栏「下一步」顺序一致）</p>
+                <!-- 线性关卡塔：自上而下 1→7，中央能量轨（与 main.js ORDER 一致） -->
+                <div class="quest-map quest-map--ladder" role="navigation" aria-label="测绘闯关路线：顺序关卡">
+                  <svg class="quest-path-ink" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                     <defs>
-                      <linearGradient id="questInkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#c45c1a" stop-opacity="0.5" />
-                        <stop offset="50%" stop-color="#d4a84b" stop-opacity="0.45" />
-                        <stop offset="100%" stop-color="#b45309" stop-opacity="0.5" />
+                      <linearGradient id="questSpineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.95" />
+                        <stop offset="45%" stop-color="#ea580c" stop-opacity="0.9" />
+                        <stop offset="100%" stop-color="#dc2626" stop-opacity="0.85" />
                       </linearGradient>
-                      <filter id="questInkBlur" x="-20%" y="-20%" width="140%" height="140%">
-                        <feGaussianBlur in="SourceGraphic" stdDeviation="1.4" />
+                      <filter id="questSpineGlow" x="-50%" y="-5%" width="200%" height="110%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="b" />
+                        <feMerge>
+                          <feMergeNode in="b" />
+                          <feMergeNode in="SourceGraphic" />
+                        </feMerge>
                       </filter>
                     </defs>
-                    <!-- 蛇形：上行左→右 → 下行右→左 → 汇入 BOSS -->
-                    <path
-                      class="quest-path-glow"
-                      d="M 120 100 L 500 100 L 880 100 L 880 258 L 120 258 L 120 400 L 500 448"
-                      fill="none"
-                      stroke="url(#questInkGrad)"
-                      stroke-width="16"
+                    <line
+                      class="quest-spine-line"
+                      x1="50"
+                      y1="1"
+                      x2="50"
+                      y2="99"
+                      stroke="url(#questSpineGrad)"
+                      stroke-width="5"
                       stroke-linecap="round"
-                      stroke-linejoin="round"
-                      opacity="0.24"
-                      filter="url(#questInkBlur)"
-                    />
-                    <path
-                      class="quest-path-line"
-                      d="M 120 100 L 500 100 L 880 100 L 880 258 L 120 258 L 120 400 L 500 448"
-                      fill="none"
-                      stroke="#c2410c"
-                      stroke-width="3.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-dasharray="10 16"
-                      opacity="0.55"
+                      filter="url(#questSpineGlow)"
+                      opacity="0.72"
                     />
                   </svg>
                   <div class="quest-floating quest-floating--a" aria-hidden="true"></div>
                   <div class="quest-floating quest-floating--b" aria-hidden="true"></div>
 
-                  <div class="quest-row quest-row--a">
-                    <div class="map-node map-node--1">
-                      <span class="map-step-badge">STAGE 1</span>
-                      <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="challenge" data-ancient="悬赏榜">
-                        <span class="nav-slip-row">
-                          <span class="nav-slip-seal" aria-hidden="true">榜</span>
-                          <span class="nav-slip-text">
-                            <span class="nav-slip-t">悬赏榜</span>
-                            <span class="nav-slip-sub">情境 · 任务导入</span>
-                          </span>
+                  <div class="map-node map-node--1" data-stage="1">
+                    <span class="map-step-badge"><span class="map-step-idx">01</span> 起点</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="challenge" data-ancient="悬赏榜">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">榜</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">悬赏榜</span>
+                          <span class="nav-slip-sub">情境挑战</span>
                         </span>
-                      </button>
-                    </div>
-                    <div class="map-node map-node--2">
-                      <span class="map-step-badge">STAGE 2</span>
-                      <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="lab" data-ancient="测绘局">
-                        <span class="nav-slip-row">
-                          <span class="nav-slip-seal nav-slip-seal--mirror" aria-hidden="true">镜</span>
-                          <span class="nav-slip-text">
-                            <span class="nav-slip-t">测绘局</span>
-                            <span class="nav-slip-sub">三模型 · 影子 / 镜 / 杆</span>
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                    <div class="map-node map-node--3">
-                      <span class="map-step-badge">STAGE 3</span>
-                      <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="calc" data-ancient="算学馆">
-                        <span class="nav-slip-row">
-                          <span class="nav-slip-seal" aria-hidden="true">算</span>
-                          <span class="nav-slip-text">
-                            <span class="nav-slip-t">算学馆</span>
-                            <span class="nav-slip-sub">数据速算 · ±0.1m</span>
-                          </span>
-                        </span>
-                      </button>
-                    </div>
+                      </span>
+                    </button>
                   </div>
-
-                  <div class="quest-row quest-row--b">
-                    <div class="map-node map-node--4">
-                      <span class="map-step-badge">STAGE 4</span>
-                      <button type="button" class="nav-slip nav-slip--bamboo nav-slip--heritage nav-slip--map" data-target="heritage" data-ancient="古建测绘">
-                        <span class="nav-slip-row">
-                          <span class="nav-slip-seal" aria-hidden="true">塔</span>
-                          <span class="nav-slip-text">
-                            <span class="nav-slip-t">古建测绘</span>
-                            <span class="nav-slip-sub">塔影 · 土圭 / 算经</span>
-                          </span>
+                  <div class="map-node map-node--2" data-stage="2">
+                    <span class="map-step-badge"><span class="map-step-idx">02</span> 进阶</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="lab" data-ancient="测绘局">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal nav-slip-seal--mirror" aria-hidden="true">镜</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">测绘局</span>
+                          <span class="nav-slip-sub">方案比拼 · 三模型</span>
                         </span>
-                      </button>
-                    </div>
-                    <div class="map-node map-node--5">
-                      <span class="map-step-badge">STAGE 5</span>
-                      <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="error" data-ancient="鉴误阁">
-                        <span class="nav-slip-row">
-                          <span class="nav-slip-seal" aria-hidden="true">鉴</span>
-                          <span class="nav-slip-text">
-                            <span class="nav-slip-t">鉴误阁</span>
-                            <span class="nav-slip-sub">倾斜 · 风力 · 放大误差</span>
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                    <div class="map-node map-node--6">
-                      <span class="map-step-badge">STAGE 6</span>
-                      <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="quiz" data-ancient="科举考">
-                        <span class="nav-slip-row">
-                          <span class="nav-slip-seal" aria-hidden="true">科</span>
-                          <span class="nav-slip-text">
-                            <span class="nav-slip-t">科举考</span>
-                            <span class="nav-slip-sub">随堂测验 · 四选一</span>
-                          </span>
-                        </span>
-                      </button>
-                    </div>
+                      </span>
+                    </button>
                   </div>
-
-                  <div class="quest-row quest-row--boss">
-                    <div class="map-node map-node--7 map-node--boss">
-                      <span class="map-step-badge map-step-badge--boss">BOSS</span>
-                      <button type="button" class="nav-slip nav-slip--bamboo nav-slip--extreme nav-slip--map" data-target="extreme" data-ancient="极限挑战">
-                        <span class="nav-slip-row">
-                          <span class="nav-slip-seal nav-slip-seal--wind" aria-hidden="true">风</span>
-                          <span class="nav-slip-text">
-                            <span class="nav-slip-t">极限挑战</span>
-                            <span class="nav-slip-sub">高阶题 · 风力模拟</span>
-                          </span>
+                  <div class="map-node map-node--3" data-stage="3">
+                    <span class="map-step-badge"><span class="map-step-idx">03</span> 进阶</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--heritage nav-slip--map" data-target="heritage" data-ancient="古建测绘">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">塔</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">古建测绘</span>
+                          <span class="nav-slip-sub">海春轩塔 · 土圭测影</span>
                         </span>
-                      </button>
-                    </div>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--4" data-stage="4">
+                    <span class="map-step-badge"><span class="map-step-idx">04</span> 进阶</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="calc" data-ancient="算学馆">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">算</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">算学馆</span>
+                          <span class="nav-slip-sub">数据速算</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--5" data-stage="5">
+                    <span class="map-step-badge"><span class="map-step-idx">05</span> 进阶</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="error" data-ancient="鉴误阁">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">鉴</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">鉴误阁</span>
+                          <span class="nav-slip-sub">误差分析</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--6" data-stage="6">
+                    <span class="map-step-badge"><span class="map-step-idx">06</span> 进阶</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="quiz" data-ancient="科举考">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">科</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">科举考</span>
+                          <span class="nav-slip-sub">随堂评价</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--7 map-node--boss" data-stage="7">
+                    <span class="map-step-badge map-step-badge--boss"><span class="map-step-idx">07</span> 终局</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--extreme nav-slip--map" data-target="extreme" data-ancient="极限挑战">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal nav-slip-seal--wind" aria-hidden="true">风</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">极限挑战</span>
+                          <span class="nav-slip-sub">高阶探究 · 风力模拟</span>
+                        </span>
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>

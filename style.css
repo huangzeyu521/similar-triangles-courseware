@@ -1376,109 +1376,27 @@ body.theme-guofeng {
 }
 
 .theme-guofeng .quest-map-subtitle {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.85rem;
   text-align: center;
   font-size: clamp(0.78rem, 1.6vw, 0.88rem);
   color: #6b5c4a;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.2em;
   font-family: var(--font-serif);
 }
 
-.theme-guofeng .quest-map-kicker {
-  margin: 0 0 0.65rem;
-  text-align: center;
-  font-size: 0.62rem;
-  font-weight: 800;
-  letter-spacing: 0.55em;
-  color: rgba(180, 83, 9, 0.75);
-  text-shadow: 0 0 20px rgba(251, 191, 36, 0.35);
-}
-
-/* ========== 测绘闯关图：游戏化蛇形地图（3×2 + BOSS） ========== */
-.theme-guofeng .quest-map {
+/* ========== 测绘闯关图：线性关卡塔（顺序 1→7，对齐 main.js ORDER） ========== */
+.theme-guofeng .quest-map--ladder {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.55rem;
   width: 100%;
-  max-width: 920px;
+  max-width: 22rem;
   margin: 0 auto;
-  min-height: 280px;
-  padding: 0.25rem 0 0.85rem;
-}
-
-.theme-guofeng .quest-map--gameboard {
-  isolation: isolate;
-}
-
-.theme-guofeng .quest-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.65rem 0.55rem;
-  width: 100%;
-  max-width: 880px;
-  position: relative;
-  z-index: 2;
-}
-
-.theme-guofeng .quest-row--a {
-  padding-top: 1.35rem;
-}
-
-.theme-guofeng .quest-row--a::before {
-  content: "第一幕 · 情境 → 测绘局 → 算学馆";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  color: var(--chai-deep);
-  opacity: 0.78;
-  font-family: var(--font-serif);
-  white-space: nowrap;
-}
-
-.theme-guofeng .quest-row--b {
-  padding-top: 1.35rem;
-}
-
-.theme-guofeng .quest-row--b::before {
-  content: "第二幕 · 古建沉浸 → 鉴误 → 科举";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  color: var(--chai-deep);
-  opacity: 0.78;
-  font-family: var(--font-serif);
-  white-space: nowrap;
-}
-
-.theme-guofeng .quest-row--boss {
-  grid-template-columns: 1fr;
-  max-width: 300px;
-  justify-items: center;
-  padding-top: 1.1rem;
-}
-
-.theme-guofeng .quest-row--boss::before {
-  content: "终章 · 极限 BOSS";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  color: #c2410c;
-  font-family: var(--font-serif);
-  text-shadow: 0 0 18px rgba(251, 146, 60, 0.45);
-  white-space: nowrap;
+  min-height: auto;
+  padding: 0.5rem 0.35rem 1rem;
 }
 
 .theme-guofeng .quest-path-ink {
@@ -1502,23 +1420,23 @@ body.theme-guofeng {
   z-index: 0;
 }
 
-.theme-guofeng .quest-floating--a {
-  width: 120px;
-  height: 48px;
-  left: 8%;
-  top: 12%;
-  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.5), transparent 70%);
-  filter: blur(12px);
+.theme-guofeng .quest-map--ladder .quest-floating--a {
+  width: 100px;
+  height: 40px;
+  left: 4%;
+  top: 8%;
+  background: radial-gradient(ellipse, rgba(251, 191, 36, 0.35), transparent 70%);
+  filter: blur(14px);
   animation: questFloat 8s ease-in-out infinite;
 }
 
-.theme-guofeng .quest-floating--b {
-  width: 90px;
-  height: 40px;
-  right: 10%;
-  bottom: 18%;
-  background: radial-gradient(ellipse, rgba(200, 210, 220, 0.4), transparent 70%);
-  filter: blur(10px);
+.theme-guofeng .quest-map--ladder .quest-floating--b {
+  width: 80px;
+  height: 36px;
+  right: 4%;
+  bottom: 10%;
+  background: radial-gradient(ellipse, rgba(248, 113, 113, 0.22), transparent 70%);
+  filter: blur(12px);
   animation: questFloat 10s ease-in-out infinite reverse;
 }
 
@@ -1543,26 +1461,55 @@ body.theme-guofeng {
   gap: 0.28rem;
 }
 
-.theme-guofeng .map-step-badge {
-  font-size: 0.58rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #9a3412;
+.theme-guofeng .quest-map--ladder .map-step-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff;
   font-family: var(--font-ui);
-  background: linear-gradient(180deg, #fff7ed, #ffedd5);
-  border: 1px solid rgba(234, 88, 12, 0.35);
-  padding: 0.14rem 0.5rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.12);
+  background: linear-gradient(145deg, #f59e0b 0%, #ea580c 55%, #c2410c 100%);
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  padding: 0.2rem 0.55rem 0.22rem;
+  border-radius: 8px;
+  box-shadow:
+    0 3px 0 #9a3412,
+    0 8px 18px rgba(234, 88, 12, 0.35);
   white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.theme-guofeng .map-step-badge--boss {
-  color: #b45309;
-  border-color: rgba(212, 165, 116, 0.65);
-  background: linear-gradient(180deg, #fff7ed, #fed7aa);
-  font-weight: 700;
+.theme-guofeng .quest-map--ladder .map-step-idx {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.65rem;
+  padding: 0.08rem 0.2rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: #7c2d12;
+  background: linear-gradient(180deg, #fffbeb, #fde68a);
+  border-radius: 6px;
+  border: 1px solid rgba(180, 83, 9, 0.35);
+}
+
+.theme-guofeng .quest-map--ladder .map-step-badge--boss {
+  background: linear-gradient(145deg, #ef4444 0%, #b91c1c 50%, #7f1d1d 100%);
+  border-color: rgba(254, 202, 202, 0.55);
+  box-shadow:
+    0 3px 0 #7f1d1d,
+    0 10px 24px rgba(220, 38, 38, 0.4);
   animation: bossPulse 2.8s ease-in-out infinite;
+}
+
+.theme-guofeng .quest-map--ladder .map-step-badge--boss .map-step-idx {
+  color: #7f1d1d;
+  background: linear-gradient(180deg, #fef2f2, #fecaca);
+  border-color: rgba(185, 28, 28, 0.45);
 }
 
 @keyframes bossPulse {
@@ -1575,9 +1522,14 @@ body.theme-guofeng {
   }
 }
 
-.theme-guofeng .map-node--boss .nav-slip--map {
+/* 线性关卡：仅保留 DOM 顺序，不再使用网格坐标（避免凌乱折线） */
+.theme-guofeng .quest-map--ladder .map-node--boss .nav-slip--map {
   border-width: 2px;
   box-shadow: 0 6px 22px rgba(212, 165, 116, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.theme-guofeng .quest-map--ladder .nav-slip--map {
+  max-width: 100%;
 }
 
 .theme-guofeng .nav-slip--map {
@@ -1602,26 +1554,26 @@ body.theme-guofeng {
   animation: slipFadeIn 0.55s ease forwards;
 }
 
-.theme-guofeng .map-node--1 .nav-slip--map {
-  animation-delay: 0s;
-}
-.theme-guofeng .map-node--2 .nav-slip--map {
+.theme-guofeng .quest-map .map-node:nth-child(4) .nav-slip--map {
   animation-delay: 0.05s;
 }
-.theme-guofeng .map-node--3 .nav-slip--map {
+.theme-guofeng .quest-map .map-node:nth-child(5) .nav-slip--map {
   animation-delay: 0.1s;
 }
-.theme-guofeng .map-node--4 .nav-slip--map {
+.theme-guofeng .quest-map .map-node:nth-child(6) .nav-slip--map {
   animation-delay: 0.15s;
 }
-.theme-guofeng .map-node--5 .nav-slip--map {
+.theme-guofeng .quest-map .map-node:nth-child(7) .nav-slip--map {
   animation-delay: 0.2s;
 }
-.theme-guofeng .map-node--6 .nav-slip--map {
+.theme-guofeng .quest-map .map-node:nth-child(8) .nav-slip--map {
   animation-delay: 0.25s;
 }
-.theme-guofeng .map-node--7 .nav-slip--map {
-  animation-delay: 0.32s;
+.theme-guofeng .quest-map .map-node:nth-child(9) .nav-slip--map {
+  animation-delay: 0.3s;
+}
+.theme-guofeng .quest-map .map-node:nth-child(10) .nav-slip--map {
+  animation-delay: 0.35s;
 }
 @keyframes slipFadeIn {
   from {
@@ -1821,31 +1773,15 @@ body.theme-guofeng {
   margin-top: 0.5rem;
 }
 
-/* 窄屏：闯关图单列瀑布流，分幕标签自动换行 */
+/* 窄屏：关卡塔已为单列，仅微调能量轨对比度 */
 @media (max-width: 900px) {
-  .theme-guofeng .quest-map {
-    min-height: auto;
-    padding-bottom: 1rem;
+  .theme-guofeng .quest-map--ladder {
+    max-width: min(100%, 20rem);
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
   }
-  .theme-guofeng .quest-path-ink {
-    opacity: 0.22;
-  }
-  .theme-guofeng .quest-row,
-  .theme-guofeng .quest-row--boss {
-    grid-template-columns: 1fr;
-    max-width: min(100%, 360px);
-  }
-  .theme-guofeng .quest-row--a::before,
-  .theme-guofeng .quest-row--b::before,
-  .theme-guofeng .quest-row--boss::before {
-    white-space: normal;
-    text-align: center;
-    width: 92%;
-    line-height: 1.35;
-  }
-  .theme-guofeng .map-node {
-    max-width: min(100%, 340px);
-    justify-self: center;
+  .theme-guofeng .quest-map--ladder .quest-path-ink {
+    opacity: 0.5;
   }
 }
 
