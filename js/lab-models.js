@@ -224,10 +224,6 @@
 
   MeasureLab.prototype.setMode = function (m) {
     this.mode = m;
-    var wrap = this.canvas && this.canvas.parentElement;
-    if (wrap) {
-      wrap.classList.toggle("lab-canvas-wrap--pole-bg", m === "pole");
-    }
   };
 
   MeasureLab.prototype._draw = function () {
@@ -239,18 +235,12 @@
     ctx.clearRect(0, 0, Lw, Lh);
     ctx.save();
     ctx.scale(Lw / W, Lh / H);
-    if (this.mode === "pole") {
-      /** 标杆法：天空区透明以露出容器上的实景背景；仅轻铺地面便于读数 */
-      ctx.fillStyle = "rgba(197, 208, 220, 0.42)";
-      ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
-    } else {
-      ctx.fillStyle = "#e8e4de";
-      ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#e8e4de";
+    ctx.fillRect(0, 0, W, H);
 
-      /** 操场地面 */
-      ctx.fillStyle = "#c5d0dc";
-      ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
-    }
+    /** 操场地面 */
+    ctx.fillStyle = "#c5d0dc";
+    ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
     ctx.strokeStyle = "#64748b";
     ctx.beginPath();
     ctx.moveTo(0, GROUND_Y);
