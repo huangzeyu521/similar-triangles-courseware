@@ -307,9 +307,9 @@ body {
 
 .challenge-bg {
   background-color: #0f172a;
-  background-image: url("https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1400&q=80");
+  background-image: url("flag1.png");
   background-size: cover;
-  background-position: center 40%;
+  background-position: center center;
 }
 
 .challenge-bg-overlay {
