@@ -292,11 +292,20 @@ body {
 }
 
 /* 情境挑战：操场背景 + 左侧淡入文案 + 遮罩任务卡 */
+/* 主舞台内 flex + min-height:0，避免子块高度未约束导致背景/内容撑出滚动或溢出 */
+#view-challenge.view {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
 .challenge-scene {
   position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
-  height: 100%;
-  min-height: 200px;
+  max-width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -308,7 +317,9 @@ body {
 .challenge-bg {
   background-color: #0f172a;
   background-image: url("flag1.png");
-  background-size: cover;
+  /* 完整显示图片并随容器缩放；窄边留白用 background-color 铺底 */
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center center;
 }
 
