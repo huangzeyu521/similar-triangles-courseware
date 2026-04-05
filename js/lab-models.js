@@ -393,10 +393,30 @@
     var mx = this.mirrorX;
     var my = GROUND_Y;
     var eyeX = 780;
-    var eyeY = GROUND_Y - 150;
+    /** 人眼略低，左右两个直角三角形（旗杆侧 / 人眼侧）在画面上更易区分 */
+    var eyeY = GROUND_Y - 88;
 
     var refl = mirrorReflect(flagTopX, flagTopY, mx, my, eyeX, eyeY);
     var ok = refl.hitDist < 14;
+
+    /** 镜面左侧：旗杆—地面—镜心 构成的直角三角形；右侧：镜心—地面—人眼 构成的直角三角形（与入射/反射构成的相似关系一致） */
+    ctx.fillStyle = "rgba(248, 113, 113, 0.2)";
+    ctx.strokeStyle = "rgba(220, 38, 38, 0.55)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(flagTopX, GROUND_Y);
+    ctx.lineTo(flagTopX, flagTopY);
+    ctx.lineTo(mx, GROUND_Y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(mx, GROUND_Y);
+    ctx.lineTo(eyeX, GROUND_Y);
+    ctx.lineTo(eyeX, eyeY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
 
     ctx.strokeStyle = ok ? "#4ade80" : "rgba(250, 204, 21, 0.9)";
     ctx.lineWidth = ok ? 4 : 2;
