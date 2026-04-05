@@ -42,8 +42,8 @@
               <div class="scroll-paper-edge scroll-paper-edge--right" aria-hidden="true"></div>
               <div class="scroll-inner scroll-inner--quest">
                 <p class="scroll-tagline font-serif">以相似三角形 · 丈量天地</p>
-                <p class="quest-map-subtitle">测绘闯关图 · 沿墨线依次解锁七关</p>
-                <!-- 闯关路线：非线性排布 + 背景墨线轨迹；印章与标题横排杜绝重叠 -->
+                <p class="quest-map-subtitle">测绘闯关图 · 六大关卡 + 终章（自上而下：基础 → 应用 → 综合）</p>
+                <!-- 闯关路线：3×2+1 栅格；墨线为背景装饰，与关卡对齐 -->
                 <div class="quest-map" role="navigation" aria-label="测绘闯关路线">
                   <svg class="quest-path-ink" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                     <defs>
@@ -56,28 +56,28 @@
                         <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" />
                       </filter>
                     </defs>
-                    <!-- 主墨径：折线模拟山径闯关 -->
+                    <!-- 主墨径：双行闯关示意（与 3×2+1 栅格对齐，避免杂乱折线） -->
                     <path
                       class="quest-path-glow"
-                      d="M 70 95 Q 200 40 340 95 Q 480 150 620 95 Q 760 45 920 115 Q 940 200 780 255 Q 620 310 420 275 Q 280 245 160 310 Q 280 365 500 360"
+                      d="M 60 95 C 200 45 340 145 500 95 S 800 45 940 95 M 60 255 C 220 205 380 305 500 255 S 780 205 940 255 M 500 115 L 500 235"
                       fill="none"
                       stroke="url(#questInkGrad)"
-                      stroke-width="14"
+                      stroke-width="12"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      opacity="0.22"
+                      opacity="0.18"
                       filter="url(#questInkBlur)"
                     />
                     <path
                       class="quest-path-line"
-                      d="M 70 95 Q 200 40 340 95 Q 480 150 620 95 Q 760 45 920 115 Q 940 200 780 255 Q 620 310 420 275 Q 280 245 160 310 Q 280 365 500 360"
+                      d="M 60 95 C 200 45 340 145 500 95 S 800 45 940 95 M 60 255 C 220 205 380 305 500 255 S 780 205 940 255 M 500 115 L 500 235"
                       fill="none"
                       stroke="#9a7b38"
-                      stroke-width="3.5"
+                      stroke-width="2.8"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-dasharray="8 14"
-                      opacity="0.65"
+                      opacity="0.5"
                     />
                   </svg>
                   <div class="quest-floating quest-floating--a" aria-hidden="true"></div>
@@ -109,24 +109,24 @@
                   </div>
                   <div class="map-node map-node--3">
                     <span class="map-step-badge">第叁关</span>
-                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--heritage nav-slip--map" data-target="heritage" data-ancient="古建测绘">
-                      <span class="nav-slip-row">
-                        <span class="nav-slip-seal" aria-hidden="true">塔</span>
-                        <span class="nav-slip-text">
-                          <span class="nav-slip-t">古建测绘</span>
-                          <span class="nav-slip-sub">海春轩塔 · 土圭测影</span>
-                        </span>
-                      </span>
-                    </button>
-                  </div>
-                  <div class="map-node map-node--4">
-                    <span class="map-step-badge">第肆关</span>
                     <button type="button" class="nav-slip nav-slip--bamboo nav-slip--map" data-target="calc" data-ancient="算学馆">
                       <span class="nav-slip-row">
                         <span class="nav-slip-seal" aria-hidden="true">算</span>
                         <span class="nav-slip-text">
                           <span class="nav-slip-t">算学馆</span>
                           <span class="nav-slip-sub">数据速算</span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="map-node map-node--4">
+                    <span class="map-step-badge">第肆关</span>
+                    <button type="button" class="nav-slip nav-slip--bamboo nav-slip--heritage nav-slip--map" data-target="heritage" data-ancient="古建测绘">
+                      <span class="nav-slip-row">
+                        <span class="nav-slip-seal" aria-hidden="true">塔</span>
+                        <span class="nav-slip-text">
+                          <span class="nav-slip-t">古建测绘</span>
+                          <span class="nav-slip-sub">海春轩塔 · 土圭测影</span>
                         </span>
                       </span>
                     </button>

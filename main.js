@@ -11,7 +11,8 @@
    */
   var challengePhase = 0;
 
-  var ORDER = ["challenge", "lab", "heritage", "calc", "error", "quiz", "extreme"];
+  /** 与主界面闯关图顺序一致：情境 → 三模型 → 速算 → 古建 → 误差 → 评价 → 极限 */
+  var ORDER = ["challenge", "lab", "calc", "heritage", "error", "quiz", "extreme"];
 
   var TITLES = {
     home: "主界面",

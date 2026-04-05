@@ -1384,19 +1384,21 @@ body.theme-guofeng {
   font-family: var(--font-serif);
 }
 
-/* ========== 测绘闯关图：墨径 + 非线性关卡 ========== */
+/* ========== 测绘闯关图：3×2 六大关 + 第三行终章（对齐清晰，避免散乱坐标） ========== */
 .theme-guofeng .quest-map {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
-  grid-template-rows: repeat(4, auto);
-  gap: 0.35rem 0.5rem;
-  align-items: center;
-  justify-items: center;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, auto);
+  gap: 0.65rem 0.85rem;
+  align-items: stretch;
+  justify-items: stretch;
   width: 100%;
-  min-height: 360px;
-  padding: 0.25rem 0 0.75rem;
+  max-width: 760px;
+  margin: 0 auto;
+  min-height: auto;
+  padding: 0.35rem 0 0.85rem;
 }
 
 .theme-guofeng .quest-path-ink {
@@ -1454,7 +1456,8 @@ body.theme-guofeng {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 220px;
+  max-width: none;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1492,42 +1495,50 @@ body.theme-guofeng {
   }
 }
 
-/* 七关坐标：蜿蜒折线 */
+/* 关卡栅格：第 1～6 关两行三列；终章独占一行居中 */
 .theme-guofeng .map-node--1 {
-  grid-column: 1 / 3;
+  grid-column: 1;
   grid-row: 1;
-  justify-self: start;
-  margin-left: 0.25rem;
+  justify-self: stretch;
+  margin: 0;
 }
 .theme-guofeng .map-node--2 {
-  grid-column: 4 / 6;
+  grid-column: 2;
   grid-row: 1;
+  justify-self: stretch;
+  margin: 0;
 }
 .theme-guofeng .map-node--3 {
-  grid-column: 7 / 10;
+  grid-column: 3;
   grid-row: 1;
-  justify-self: end;
-  margin-right: 0.25rem;
+  justify-self: stretch;
+  margin: 0;
 }
 .theme-guofeng .map-node--4 {
-  grid-column: 4 / 7;
+  grid-column: 1;
   grid-row: 2;
+  justify-self: stretch;
+  margin: 0;
 }
 .theme-guofeng .map-node--5 {
-  grid-column: 1 / 4;
-  grid-row: 3;
-  justify-self: start;
-  margin-left: 0.5rem;
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: stretch;
+  margin: 0;
 }
 .theme-guofeng .map-node--6 {
-  grid-column: 6 / 10;
-  grid-row: 3;
-  justify-self: end;
-  margin-right: 0.35rem;
+  grid-column: 3;
+  grid-row: 2;
+  justify-self: stretch;
+  margin: 0;
 }
 .theme-guofeng .map-node--7 {
-  grid-column: 3 / 8;
-  grid-row: 4;
+  grid-column: 1 / -1;
+  grid-row: 3;
+  justify-self: center;
+  max-width: 280px;
+  width: 100%;
+  margin: 0.15rem auto 0;
 }
 
 .theme-guofeng .map-node--boss .nav-slip--map {
@@ -1537,7 +1548,7 @@ body.theme-guofeng {
 
 .theme-guofeng .nav-slip--map {
   width: 100%;
-  max-width: 220px;
+  max-width: none;
   position: relative;
   appearance: none;
   cursor: pointer;
