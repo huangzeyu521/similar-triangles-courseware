@@ -168,15 +168,22 @@
         else self._drag = null;
       }
     });
+    var sunDragRaf = 0;
+    var pendingSun = null;
     el.addEventListener("pointermove", function (e) {
       if (!self._drag) return;
       e.preventDefault();
       var L = self._toLogical(e);
       if (self._drag.type === "sun") {
-        var sxm = self._shadowShiftX();
-        /** 指针逻辑坐标减去当前平移量，得到与存储一致的太阳世界坐标 */
-        self.sun.x = clamp(L.x - sxm, 420, 920);
-        self.sun.y = clamp(L.y, 20, 220);
+        pendingSun = { x: L.x, y: L.y };
+        if (!sunDragRaf) {
+          sunDragRaf = requestAnimationFrame(function () {
+            sunDragRaf = 0;
+            if (self._drag && self._drag.type === "sun" && pendingSun) {
+              self._applySunDragLogical(pendingSun.x, pendingSun.y);
+            }
+          });
+        }
       } else if (self._drag.type === "mirror") {
         self.mirrorX = clamp(L.x, 220, 680);
       } else if (self._drag.type === "pole") {
@@ -187,12 +194,19 @@
     });
     var end = function () {
       self._drag = null;
+      pendingSun = null;
+      self._resize();
     };
     el.addEventListener("pointerup", end);
     el.addEventListener("pointercancel", end);
     if (typeof ResizeObserver !== "undefined" && el.parentElement) {
+      var roTimer = null;
       new ResizeObserver(function () {
-        self._resize();
+        if (self._drag) return;
+        clearTimeout(roTimer);
+        roTimer = setTimeout(function () {
+          self._resize();
+        }, 80);
       }).observe(el.parentElement);
     }
   };
@@ -259,7 +273,22 @@
     } else {
       shiftX = (lo + hi) / 2;
     }
-    return shiftX;
+    return Math.round(shiftX);
+  };
+
+  /**
+   * 影子法拖动太阳：指针逻辑坐标与「平移后太阳中心」应对齐；shiftX 随 sun 变化，单次 L.x-shiftX 会振荡。
+   * 少量迭代使 sun.x + shiftX(sun) ≈ lx 收敛；坐标半像素对齐减轻文字与圆边缘闪烁。
+   */
+  MeasureLab.prototype._applySunDragLogical = function (lx, ly) {
+    var k;
+    for (k = 0; k < 4; k++) {
+      var sx = this._shadowShiftX();
+      this.sun.x = clamp(lx - sx, 420, 920);
+      this.sun.y = clamp(ly, 20, 220);
+    }
+    this.sun.x = Math.round(this.sun.x * 4) / 4;
+    this.sun.y = Math.round(this.sun.y * 4) / 4;
   };
 
   /**

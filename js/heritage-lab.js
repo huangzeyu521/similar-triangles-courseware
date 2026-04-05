@@ -147,14 +147,22 @@
         else self._drag = null;
       }
     });
+    var sunDragRaf = 0;
+    var pendingSun = null;
     el.addEventListener("pointermove", function (e) {
       if (!self._drag) return;
       e.preventDefault();
       var L = self._toLogical(e);
       if (self._drag.type === "sun") {
-        var hsm = self._shadowShiftX();
-        self.sun.x = clamp(L.x - hsm, 400, 920);
-        self.sun.y = clamp(L.y, 18, 210);
+        pendingSun = { x: L.x, y: L.y };
+        if (!sunDragRaf) {
+          sunDragRaf = requestAnimationFrame(function () {
+            sunDragRaf = 0;
+            if (self._drag && self._drag.type === "sun" && pendingSun) {
+              self._applySunDragLogical(pendingSun.x, pendingSun.y);
+            }
+          });
+        }
       } else if (self._drag.type === "basin") {
         self.basinX = clamp(L.x, 210, 690);
       } else if (self._drag.type === "pole") {
@@ -165,12 +173,19 @@
     });
     var end = function () {
       self._drag = null;
+      pendingSun = null;
+      self._resize();
     };
     el.addEventListener("pointerup", end);
     el.addEventListener("pointercancel", end);
     if (typeof ResizeObserver !== "undefined" && self.canvas.parentElement) {
+      var roTimer = null;
       new ResizeObserver(function () {
-        self._resize();
+        if (self._drag) return;
+        clearTimeout(roTimer);
+        roTimer = setTimeout(function () {
+          self._resize();
+        }, 80);
       }).observe(self.canvas.parentElement);
     }
   };
@@ -308,7 +323,18 @@
     } else {
       shiftX = (lo + hi) / 2;
     }
-    return shiftX;
+    return Math.round(shiftX);
+  };
+
+  HeritageLab.prototype._applySunDragLogical = function (lx, ly) {
+    var k;
+    for (k = 0; k < 4; k++) {
+      var sx = this._shadowShiftX();
+      this.sun.x = clamp(lx - sx, 400, 920);
+      this.sun.y = clamp(ly, 18, 210);
+    }
+    this.sun.x = Math.round(this.sun.x * 4) / 4;
+    this.sun.y = Math.round(this.sun.y * 4) / 4;
   };
 
   HeritageLab.prototype._drawShadow = function (ctx) {
